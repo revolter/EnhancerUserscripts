@@ -3,6 +3,7 @@
 // @version      2
 // @author       Iulian Onofrei
 // @namespace    http://iulianonofrei.com
+// @updateURL    https://gist.github.com/revolter/542f358fde617da25712/raw/56fb1094d7e2bf17977481a20772549c15e72454/990_Enhancer.user.js
 // @match        http://www.990.ro/player-*-*
 // @match        http://superweb.rol.ro/video/*
 // @require      https://code.jquery.com/jquery-2.1.4.min.js
