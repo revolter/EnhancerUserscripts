@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         990 Enhancer
-// @version      2
+// @version      2.1
 // @author       Iulian Onofrei
 // @namespace    http://iulianonofrei.com
 // @updateURL    https://gist.github.com/revolter/542f358fde617da25712/raw/56fb1094d7e2bf17977481a20772549c15e72454/990_Enhancer.user.js
+// @match        http://www.990.ro/seriale-*-*
 // @match        http://www.990.ro/player-*-*
 // @match        http://superweb.rol.ro/video/*
 // @require      https://code.jquery.com/jquery-2.1.4.min.js
@@ -12,6 +13,12 @@
 // ==/UserScript==
 
 var SeekSeconds = 5;
+
+var PageType = {
+	Series: 1,
+	Temp: 2,
+	Player: 3,
+};
 
 var VideoType = {
 	Flash: {
@@ -46,154 +53,43 @@ var ActionType = {
 };
 
 var
-	videoType, video,
+	pageType, videoType, video,
+	isOnSeriesPage = window.location.href.indexOf("/seriale-") !== -1,
 	isOnTempPage = window.location.href.indexOf("player-") !== -1,
 	isOnPlayerPage = /video\/(\d|m)/.test(window.location.href);
 
-function getVideoPosition() {
-
-	switch (videoType) {
-		case VideoType.Flash:
-			return video.getPosition();
-		case VideoType.HTML5:
-			return video.currentTime;
-	}
+if (window.location.href.indexOf("/seriale-") !== -1) {
+	pageType = PageType.Series;
+} else if (window.location.href.indexOf("player-") !== -1) {
+	pageType = PageType.Temp;
+} else if (/video\/(\d|m)/.test(window.location.href)) {
+	pageType = PageType.Player;
 }
 
-function seekVideoToPosition(time) {
+switch (pageType) {
+	case PageType.Series:
+		enhanceSeriesPage();
 
-	switch (videoType) {
-		case VideoType.Flash:
-			video.seek(time);
+		break;
+	case PageType.Temp:
+		redirectToPlayerPage();
 
-			break;
-		case VideoType.HTML5:
-			video.currentTime = time;
+		break;
+	case PageType.Player:
+		enhancePlayerPage();
 
-			break;
-	}
+		break;
 }
 
-function runActionForVideo(actionType, data) {
-
-	data && data.preventDefault && data.preventDefault();
-
-	switch (actionType) {
-		case ActionType.PlayPause:
-			var isPaused;
-
-			switch (videoType) {
-				case VideoType.Flash:
-					var videoState = video.getState();
-
-					isPaused = videoState === "IDLE" || videoState === "PAUSED";
-
-					break;
-				case VideoType.HTML5:
-					isPaused = video.paused;
-
-					break;
-			}
-
-			if (isPaused) {
-				video.play();
-			} else {
-				video.pause();
-			}
-
-			break;
-		case ActionType.Volume.Up:
-		case ActionType.Volume.Down:
-			var signMultiplier;
-
-			switch (actionType) {
-				case ActionType.Volume.Up:
-					signMultiplier = 1;
-
-					break;
-				case ActionType.Volume.Down:
-					signMultiplier = -1;
-
-					break;
-			}
-
-			var newVolumeSummand = signMultiplier * videoType.VolumeIncrement;
-
-			switch (videoType) {
-				case VideoType.Flash:
-					var newVolume;
-
-					newVolume = video.getVolume();
-					newVolume += newVolumeSummand;
-					newVolume = newVolume < 0 ? 0 : (newVolume > 100 ? 100 : newVolume);
-
-					video.setVolume(newVolume);
-
-					break;
-				case VideoType.HTML5:
-					video.volume += newVolumeSummand;
-
-					break;
-			}
-
-			break;
-		case ActionType.Seek.Backwards.Slow:
-		case ActionType.Seek.Backwards.Fast:
-		case ActionType.Seek.Forwards.Slow:
-		case ActionType.Seek.Forwards.Fast:
-			var signMultiplier, secondsMultiplier;
-
-			switch (actionType) {
-				case ActionType.Seek.Backwards.Slow:
-					signMultiplier = -1;
-					secondsMultiplier = 1;
-
-					break;
-				case ActionType.Seek.Backwards.Fast:
-					signMultiplier = -1;
-					secondsMultiplier  = 2;
-
-					break;
-				case ActionType.Seek.Forwards.Slow:
-					signMultiplier = 1;
-					secondsMultiplier = 1;
-
-					break;
-				case ActionType.Seek.Forwards.Fast:
-					signMultiplier = 1;
-					secondsMultiplier = 2;
-
-					break;
-			}
-
-			var
-				oldProgressSeconds = getVideoPosition(),
-				newProgressSeconds = oldProgressSeconds + signMultiplier * secondsMultiplier * SeekSeconds;
-
-			seekVideoToPosition(newProgressSeconds);
-
-			break;
-		case ActionType.Bookmark.Save:
-			var
-				currentTime = getVideoPosition(),
-				bookmarkTime = Math.floor(currentTime),
-				historyData = {bookmark: currentTime};
-
-			window.history.pushState(historyData, "", "?t=" + bookmarkTime);
-
-			break;
-		case ActionType.Bookmark.Restore:
-			var bookmarkTime = data;
-
-			seekVideoToPosition(bookmarkTime);
-
-			break;
-	}
+function enhanceSeriesPage() {
+	$("#content > div:nth-child(6)").insertBefore($("#content > div:nth-child(2)"));
 }
 
-if (isOnTempPage) {
-    window.location.href = $(".player5x a").attr("href").replace(/video\/\d/, "video/3");
-} else if (isOnPlayerPage) {
+function redirectToPlayerPage() {
+	window.location.href = $(".player5x a").attr("href").replace(/video\/\d/, "video/3");
+}
+
+function enhancePlayerPage() {
 	var
 		fileURL,
 
@@ -291,4 +187,147 @@ if (isOnTempPage) {
 	$document.on("keydown", null, "alt+right", function(e) {runActionForVideo(ActionType.Seek.Forwards.Fast, e);});
 
 	$document.on("keyup", null, "b", function() {runActionForVideo(ActionType.Bookmark.Save);});
+}
+
+function runActionForVideo(actionType, data) {
+
+	if (data && data.preventDefault) {
+		data.preventDefault();
+	}
+
+	switch (actionType) {
+		case ActionType.PlayPause:
+			var isPaused;
+
+			switch (videoType) {
+				case VideoType.Flash:
+					var videoState = video.getState();
+
+					isPaused = videoState === "IDLE" || videoState === "PAUSED";
+
+					break;
+				case VideoType.HTML5:
+					isPaused = video.paused;
+
+					break;
+			}
+
+			if (isPaused) {
+				video.play();
+			} else {
+				video.pause();
+			}
+
+			break;
+		case ActionType.Volume.Up:
+		case ActionType.Volume.Down:
+			var signMultiplier;
+
+			switch (actionType) {
+				case ActionType.Volume.Up:
+					signMultiplier = 1;
+
+					break;
+				case ActionType.Volume.Down:
+					signMultiplier = -1;
+
+					break;
+			}
+
+			var newVolumeSummand = signMultiplier * videoType.VolumeIncrement;
+
+			switch (videoType) {
+				case VideoType.Flash:
+					var newVolume;
+
+					newVolume = video.getVolume();
+					newVolume += newVolumeSummand;
+					newVolume = newVolume < 0 ? 0 : (newVolume > 100 ? 100 : newVolume);
+
+					video.setVolume(newVolume);
+
+					break;
+				case VideoType.HTML5:
+					video.volume += newVolumeSummand;
+
+					break;
+			}
+
+			break;
+		case ActionType.Seek.Backwards.Slow:
+		case ActionType.Seek.Backwards.Fast:
+		case ActionType.Seek.Forwards.Slow:
+		case ActionType.Seek.Forwards.Fast:
+			var signMultiplier, secondsMultiplier;
+
+			switch (actionType) {
+				case ActionType.Seek.Backwards.Slow:
+					signMultiplier = -1;
+					secondsMultiplier = 1;
+
+					break;
+				case ActionType.Seek.Backwards.Fast:
+					signMultiplier = -1;
+					secondsMultiplier = 2;
+
+					break;
+				case ActionType.Seek.Forwards.Slow:
+					signMultiplier = 1;
+					secondsMultiplier = 1;
+
+					break;
+				case ActionType.Seek.Forwards.Fast:
+					signMultiplier = 1;
+					secondsMultiplier = 2;
+
+					break;
+			}
+
+			var
+				oldProgressSeconds = getVideoPosition(),
+				newProgressSeconds = oldProgressSeconds + signMultiplier * secondsMultiplier * SeekSeconds;
+
+			seekVideoToPosition(newProgressSeconds);
+
+			break;
+		case ActionType.Bookmark.Save:
+			var
+				currentTime = getVideoPosition(),
+				bookmarkTime = Math.floor(currentTime),
+				historyData = {bookmark: currentTime};
+
+			window.history.pushState(historyData, "", "?t=" + bookmarkTime);
+
+			break;
+		case ActionType.Bookmark.Restore:
+			var bookmarkTime = data;
+
+			seekVideoToPosition(bookmarkTime);
+
+			break;
+	}
+}
+
+function getVideoPosition() {
+
+	switch (videoType) {
+		case VideoType.Flash:
+			return video.getPosition();
+		case VideoType.HTML5:
+			return video.currentTime;
+	}
+}
+
+function seekVideoToPosition(time) {
+
+	switch (videoType) {
+		case VideoType.Flash:
+			video.seek(time);
+
+			break;
+		case VideoType.HTML5:
+			video.currentTime = time;
+
+			break;
+	}
 }
