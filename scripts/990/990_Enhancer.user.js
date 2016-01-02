@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         990 Enhancer
-// @version      2.1
+// @version      2.2
 // @author       Iulian Onofrei
 // @namespace    http://iulianonofrei.com
 // @updateURL    https://gist.github.com/revolter/542f358fde617da25712/raw/56fb1094d7e2bf17977481a20772549c15e72454/990_Enhancer.user.js
-// @match        http://www.990.ro/seriale-*-*
+// @match        http://www.990.ro/seriale*-*-*
 // @match        http://www.990.ro/player-*-*
 // @match        http://superweb.rol.ro/video/*
 // @require      https://code.jquery.com/jquery-2.1.4.min.js
@@ -16,8 +16,9 @@ var SeekSeconds = 5;
 
 var PageType = {
 	Series: 1,
-	Temp: 2,
-	Player: 3,
+	Links: 2,
+	Temp: 3,
+	Player: 4
 };
 
 var VideoType = {
@@ -26,7 +27,7 @@ var VideoType = {
 	},
 	HTML5: {
 		VolumeIncrement: 0.1
-	},
+	}
 };
 
 var ActionType = {
@@ -60,6 +61,8 @@ var
 
 if (window.location.href.indexOf("/seriale-") !== -1) {
 	pageType = PageType.Series;
+} else if (/seriale\d-/.test(window.location.href)) {
+	pageType = PageType.Links;
 } else if (window.location.href.indexOf("player-") !== -1) {
 	pageType = PageType.Temp;
 } else if (/video\/(\d|m)/.test(window.location.href)) {
@@ -69,6 +72,10 @@ if (window.location.href.indexOf("/seriale-") !== -1) {
 switch (pageType) {
 	case PageType.Series:
 		enhanceSeriesPage();
+
+		break;
+	case PageType.Links:
+		enhanceLinksPage();
 
 		break;
 	case PageType.Temp:
@@ -83,6 +90,25 @@ switch (pageType) {
 
 function enhanceSeriesPage() {
 	$("#content > div:nth-child(6)").insertBefore($("#content > div:nth-child(2)"));
+	$("#content > div:nth-child(2) .link").attr("target", "_blank");
+	$("#content > div:nth-child(2) .link").each(function(index, element) {
+		var
+			$element = $(element),
+			$clone = $element.clone();
+
+		$clone.get(0).href += "?direct";
+		//$clone.attr("href", $clone.get(0).href.replace(/seriale2-(\d+)-(\d+)-.*/, "player-serial-$1-$2-sfast-$2.html"));
+		$clone.css("margin-left", "6px");
+		$clone.text("(direct)");
+
+		$clone.insertAfter($element);
+	});
+}
+
+function enhanceLinksPage() {
+	if (window.location.search.indexOf("direct") !== -1) {
+		window.location.href = $(".linkviz .link").get(0).href;
+	}
 }
 
 function redirectToPlayerPage() {
