@@ -97,7 +97,6 @@ function enhanceSeriesPage() {
 			$clone = $element.clone();
 
 		$clone.get(0).href += "?direct";
-		//$clone.attr("href", $clone.get(0).href.replace(/seriale2-(\d+)-(\d+)-.*/, "player-serial-$1-$2-sfast-$2.html"));
 		$clone.css("margin-left", "6px");
 		$clone.text("(direct)");
 
