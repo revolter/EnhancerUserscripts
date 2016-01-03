@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         990 Enhancer
-// @version      2.2
+// @version      2.3
 // @author       Iulian Onofrei
 // @namespace    http://iulianonofrei.com
 // @updateURL    https://gist.github.com/revolter/542f358fde617da25712/raw/56fb1094d7e2bf17977481a20772549c15e72454/990_Enhancer.user.js
@@ -89,9 +89,10 @@ switch (pageType) {
 }
 
 function enhanceSeriesPage() {
-	$("#content > div:nth-child(6)").insertBefore($("#content > div:nth-child(2)"));
-	$("#content > div:nth-child(2) .link").attr("target", "_blank");
-	$("#content > div:nth-child(2) .link").each(function(index, element) {
+
+	$("#content > div:nth-of-type(6)").insertBefore($("#content > div:nth-of-type(2)"));
+	$("#content > div:nth-of-type(2) .link").attr("target", "_blank");
+	$("#content > div:nth-of-type(2) .link").each(function(index, element) {
 		var
 			$element = $(element),
 			$clone = $element.clone();
@@ -105,16 +106,22 @@ function enhanceSeriesPage() {
 }
 
 function enhanceLinksPage() {
+
 	if (window.location.search.indexOf("direct") !== -1) {
 		window.location.href = $(".linkviz .link").get(0).href;
+	} else {
+		$(".linkviz").insertBefore($("#content > div:nth-of-type(2)"));
+		$(".linkviz > *:not([style*=border-bottom])").remove();
 	}
 }
 
 function redirectToPlayerPage() {
+
 	window.location.href = $(".player5x a").attr("href").replace(/video\/\d/, "video/3");
 }
 
 function enhancePlayerPage() {
+
 	var
 		fileURL,
 
@@ -124,8 +131,12 @@ function enhancePlayerPage() {
 		isHTML5Player = window.location.href.indexOf("video/3") !== -1,
 
 		$menuButton = $(".hcontent a:last-child"),
-		$menuButtonClone = $menuButton.clone(),
-		$menuButtonCloneContent = $menuButtonClone.find("div");
+
+		$downloadButton = $menuButton.clone(),
+		$downloadButtonContent = $downloadButton.find("div"),
+
+		$markAsSeenButton = $menuButton.clone(),
+		$markAsSeenButtonContent = $markAsSeenButton.find("div");
 
 	videoType = isHTML5Player ? VideoType.HTML5 : VideoType.Flash;
 
@@ -180,10 +191,10 @@ function enhancePlayerPage() {
 
 	// add download button
 
-	$menuButtonClone.attr("href", fileURL);
-	$menuButtonCloneContent.text("Download");
-	$menuButtonCloneContent.removeClass("active");
-	$menuButtonClone.insertAfter($menuButton);
+	$downloadButton.attr("href", fileURL);
+	$downloadButtonContent.text("Download");
+	$downloadButtonContent.removeClass("active");
+	$downloadButton.insertAfter($menuButton);
 
 	if (bookmark) {
 		var bookmarkTime = parseInt(bookmark[0]);
