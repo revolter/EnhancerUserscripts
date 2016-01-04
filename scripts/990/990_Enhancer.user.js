@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         990 Enhancer
-// @version      2.3
+// @version      2.3.1
 // @author       Iulian Onofrei
 // @namespace    http://iulianonofrei.com
 // @updateURL    https://gist.github.com/revolter/542f358fde617da25712/raw/56fb1094d7e2bf17977481a20772549c15e72454/990_Enhancer.user.js
@@ -153,6 +153,8 @@ function enhancePlayerPage() {
 
 	$("body > *:not(:has(.hline)):not(:has(video)):not(:has(object)):not(:has(#fileplayer))").remove();
 	$("#jw5 > div:last").remove();
+
+	$("<style type='text/css'>.hcontent a {display: inline-block;}</style>").appendTo("head");
 
 	switch (videoType) {
 		case VideoType.Flash:
