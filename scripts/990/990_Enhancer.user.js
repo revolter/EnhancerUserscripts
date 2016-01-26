@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         990 Enhancer
-// @version      2.3.2
+// @version      2.3.3
 // @author       Iulian Onofrei
 // @namespace    http://iulianonofrei.com
-// @updateURL    https://gist.github.com/revolter/542f358fde617da25712/raw/56fb1094d7e2bf17977481a20772549c15e72454/990_Enhancer.user.js
+// @updateURL    https://gist.github.com/raw/542f358fde617da25712/990_Enhancer.user.js
 // @match        http://www.990.ro/seriale*-*-*
 // @match        http://www.990.ro/player-*-*
 // @match        http://superweb.rol.ro/video/*
@@ -123,7 +123,7 @@ function redirectToPlayerPage() {
 function enhancePlayerPage() {
 
 	var
-		fileURL,
+		videoFileURL, subtitleFileURL,
 
 		$document = $(document),
 
@@ -132,11 +132,11 @@ function enhancePlayerPage() {
 
 		$menuButton = $(".hcontent a:last-child"),
 
-		$downloadButton = $menuButton.clone(),
-		$downloadButtonContent = $downloadButton.find("div"),
+		$downloadVideoButton = $menuButton.clone(),
+		$downloadVideoButtonContent = $downloadVideoButton.find("div"),
 
-		$markAsSeenButton = $menuButton.clone(),
-		$markAsSeenButtonContent = $markAsSeenButton.find("div");
+		$downloadSubtitleButton = $menuButton.clone(),
+		$downloadSubtitleButtonContent = $downloadSubtitleButton.find("div");
 
 	videoType = isHTML5Player ? VideoType.HTML5 : VideoType.Flash;
 
@@ -160,7 +160,7 @@ function enhancePlayerPage() {
 
 	switch (videoType) {
 		case VideoType.Flash:
-			fileURL = video.config.file;
+			videoFileURL = video.config.file;
 
 			// remove logo
 
@@ -174,7 +174,8 @@ function enhancePlayerPage() {
 		case VideoType.HTML5:
 			var
 				$video = $("#myvideo"),
-				$videoSource = $video.find("source");
+				$videoSource = $video.find("source"),
+				$trackSource = $video.find("track");
 
 			if (/\.flv$/.test($videoSource.attr("src"))) {
 				window.location.href = window.location.href.replace("video/3", "video/2");
@@ -188,17 +189,27 @@ function enhancePlayerPage() {
 				video.webkitRequestFullscreen();
 			});
 
-			fileURL = $videoSource.attr("src");
+			videoFileURL = $videoSource.attr("src");
+			subtitleFileURL = $trackSource.attr("src");
 
 			break;
 	}
 
-	// add download button
+	// add download buttons
 
-	$downloadButton.attr("href", fileURL);
-	$downloadButtonContent.text("Download");
-	$downloadButtonContent.removeClass("active");
-	$downloadButton.insertAfter($menuButton);
+	$downloadSubtitleButton.attr("href", subtitleFileURL);
+	$downloadSubtitleButton.attr("download", "subtitle.srt");
+	$downloadSubtitleButtonContent.text("Download subtitle");
+	$downloadSubtitleButtonContent.removeClass("active");
+	$downloadSubtitleButtonContent.removeAttr("id");
+	$downloadSubtitleButton.insertAfter($menuButton);
+
+	$downloadVideoButton.attr("href", videoFileURL);
+	$downloadVideoButton.attr("download", "video");
+	$downloadVideoButtonContent.text("Download video");
+	$downloadVideoButtonContent.removeClass("active");
+	$downloadVideoButtonContent.removeAttr("id");
+	$downloadVideoButton.insertAfter($menuButton);
 
 	if (bookmark) {
 		var bookmarkTime = parseInt(bookmark[0]);
