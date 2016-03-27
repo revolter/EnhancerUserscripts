@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name		990 Enhancer
-// @version		2.4.1
+// @version		2.4.2
 // @author		Iulian Onofrei
 // @namespace	http://iulianonofrei.com
 // @updateURL	https://gist.github.com/raw/542f358fde617da25712/990_Enhancer.user.js
@@ -136,7 +136,7 @@ function enhanceSeriesPage() {
 					}, clone);
 				}, clone);
 			}, clone);
-		}, clone;
+		}, clone);
 	});
 }
 
