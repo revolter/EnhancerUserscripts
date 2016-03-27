@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		990 Enhancer
-// @version	 	2.4.0
-// @author	 	Iulian Onofrei
+// @version		2.4.1
+// @author		Iulian Onofrei
 // @namespace	http://iulianonofrei.com
 // @updateURL	https://gist.github.com/raw/542f358fde617da25712/990_Enhancer.user.js
 // @match		http://www.990.ro/seriale*-*-*
@@ -9,7 +9,7 @@
 // @match		http://superweb.rol.ro/video/*
 // @require		https://code.jquery.com/jquery-2.1.4.min.js
 // @require		https://raw.githubusercontent.com/jeresig/jquery.hotkeys/master/jquery.hotkeys.js
-// @require 	https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
+// @require		https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
 // @grant		GM_xmlhttpRequest
 // ==/UserScript==
 
