@@ -1,15 +1,16 @@
 // ==UserScript==
-// @name         990 Enhancer
-// @version      2.3.3
-// @author       Iulian Onofrei
-// @namespace    http://iulianonofrei.com
-// @updateURL    https://gist.github.com/raw/542f358fde617da25712/990_Enhancer.user.js
-// @match        http://www.990.ro/seriale*-*-*
-// @match        http://www.990.ro/player-*-*
-// @match        http://superweb.rol.ro/video/*
-// @require      https://code.jquery.com/jquery-2.1.4.min.js
-// @require      https://raw.githubusercontent.com/jeresig/jquery.hotkeys/master/jquery.hotkeys.js
-// @grant        none
+// @name		990 Enhancer
+// @version	 	2.4.0
+// @author	 	Iulian Onofrei
+// @namespace	http://iulianonofrei.com
+// @updateURL	https://gist.github.com/raw/542f358fde617da25712/990_Enhancer.user.js
+// @match		http://www.990.ro/seriale*-*-*
+// @match		http://www.990.ro/player-*-*
+// @match		http://superweb.rol.ro/video/*
+// @require		https://code.jquery.com/jquery-2.1.4.min.js
+// @require		https://raw.githubusercontent.com/jeresig/jquery.hotkeys/master/jquery.hotkeys.js
+// @require 	https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
+// @grant		GM_xmlhttpRequest
 // ==/UserScript==
 
 var SeekSeconds = 5;
@@ -69,6 +70,8 @@ if (window.location.href.indexOf("/seriale-") !== -1) {
 	pageType = PageType.Player;
 }
 
+removeAds();
+
 switch (pageType) {
 	case PageType.Series:
 		enhanceSeriesPage();
@@ -88,6 +91,15 @@ switch (pageType) {
 		break;
 }
 
+function removeAds() {
+
+	min.dom.onNodeExists(min.dom.getById, "paPontonCore", function(element) {
+		// min.dom.removeNode(element);
+	});
+
+	// $("#paPontonCore").remove();
+}
+
 function enhanceSeriesPage() {
 
 	$("#content > div:nth-of-type(6)").insertBefore($("#content > div:nth-of-type(2)"));
@@ -95,13 +107,36 @@ function enhanceSeriesPage() {
 	$("#content > div:nth-of-type(2) .link").each(function(index, element) {
 		var
 			$element = $(element),
-			$clone = $element.clone();
+			$clone = $element.clone(),
+			clone = $clone.get(0);
 
-		$clone.get(0).href += "?direct";
 		$clone.css("margin-left", "6px");
-		$clone.text("(direct)");
+		$clone.text("");
 
 		$clone.insertAfter($element);
+
+		min.gm.xhr($element.get(0).href, function(document, clone) {
+			var element = min.dom.getByQuery(".linkviz .link", 0, document);
+
+			min.gm.xhr(element.href, function(document, clone) {
+				var element = min.dom.getByQuery(".player5x a", 0, document);
+
+				min.gm.xhr(element.href, function(document, clone) {
+					var element = min.dom.getByTagName("iframe", 0, document);
+
+					min.gm.xhr(element.src, function(document, clone) {
+						var
+							script = min.dom.getByQuery("video script", 0, document),
+							decoded = decode(script.textContent);
+
+						eval(decoded);
+
+						clone.href = window.vs;
+						clone.textContent = "(direct)";
+					}, clone);
+				}, clone);
+			}, clone);
+		}, clone;
 	});
 }
 
@@ -381,4 +416,30 @@ function seekVideoToPosition(time) {
 
 			break;
 	}
+}
+
+function decode(text) {
+	var evalPreamble = "(\uFF9F\u0414\uFF9F) ['_'] ( (\uFF9F\u0414\uFF9F) ['_'] (";
+	var decodePreamble = "( (\uFF9F\u0414\uFF9F) ['_'] (";
+	var evalPostamble = ") (\uFF9F\u0398\uFF9F)) ('_');";
+	var decodePostamble = ") ());";
+
+	// strip beginning/ending space.
+	text = text.replace(/^\s*/, "").replace(/\s*$/, "");
+
+	// returns empty text for empty input.
+	if (/^\s*$/.test(text)) {
+		return "";
+	}
+	// check if it is encoded.
+	if (text.lastIndexOf(evalPreamble) < 0) {
+		throw new Error("Given code is not encoded as aaencode.");
+	}
+	if (text.lastIndexOf(evalPostamble) != text.length - evalPostamble.length) {
+		throw new Error("Given code is not encoded as aaencode.");
+	}
+
+	var decodingScript = text.replace(evalPreamble, decodePreamble).replace(evalPostamble, decodePostamble);
+
+	return eval(decodingScript);
 }
