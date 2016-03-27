@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name		990 Enhancer
-// @version		2.4.3
+// @version		2.4.4
 // @author		Iulian Onofrei
 // @namespace	http://iulianonofrei.com
 // @updateURL	https://gist.github.com/raw/542f358fde617da25712/990_Enhancer.user.js
@@ -119,9 +119,11 @@ function enhanceSeriesPage() {
 			var element = min.dom.getByQuery(".linkviz .link", 0, document);
 
 			min.gm.xhr(element.href, function(document, clone) {
-				var element = min.dom.getByQuery(".player5x a", 0, document);
+				var
+					element = min.dom.getByQuery(".player5x a", 0, document),
+					link = element.href.match(/http:\/\/(.(?!http:\/\/))+$/)[0];
 
-				min.gm.xhr(element.href, function(document, clone) {
+				min.gm.xhr(link, function(document, clone) {
 					var element = min.dom.getByXPath("//iframe[contains(@src, 'openload')]", 0, document);
 
 					min.gm.xhr(element.src, function(document, clone) {
