@@ -1,13 +1,14 @@
 // ==UserScript==
-// @name         GitHub Enhancer
-// @namespace    http://iulianonofrei.com
-// @version      0.4
-// @author       Iulian Onofrei
-// @match        https://gist.github.com/*/*
-// @match        https://github.com/*
-// @match        https://github.com/notifications
-// @require		 https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
-// @grant        GM_addStyle
+// @name		GitHub Enhancer
+// @namespace	http://iulianonofrei.com
+// @version		0.5
+// @author		Iulian Onofrei
+// @updateURL	https://gist.github.com/raw/187bc89d5e48990dfc38c02bcd5460c2/GitHub_Enhancer.user.js
+// @match		https://gist.github.com/*/*
+// @match		https://github.com/*
+// @match		https://github.com/notifications
+// @require		https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
+// @grant		GM_addStyle
 // ==/UserScript==
 
 if (min.isOnPath("notifications")) {
