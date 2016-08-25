@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name		StackOverflow Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		0.1
+// @version		0.2
 // @author		Iulian Onofrei
+// @updateURL	https://gist.github.com/raw/9dfa8fb9faf6322f80313848b91d479c/StackOverflow_Enhancer.user.js
 // @match		http*://stackoverflow.com/questions/*
 // @match		http*://meta.stackoverflow.com/questions/*
 // @match		http*://superuser.com/questions/*
