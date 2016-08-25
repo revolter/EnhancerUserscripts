@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		GitHub Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		0.5
+// @version		0.6
 // @author		Iulian Onofrei
 // @updateURL	https://gist.github.com/raw/187bc89d5e48990dfc38c02bcd5460c2/GitHub_Enhancer.user.js
 // @match		https://gist.github.com/*/*
@@ -36,6 +36,12 @@ if (min.isOnPath("notifications")) {
 
 	min.dom.style(rawScriptButtonLink, {
 		"margin-right": "10px"
+	});
+
+	min.gm.style({
+		".container": {
+			"width": "90%"
+		}
 	});
 
 	min.dom.insertAfter(rawScriptButton, rawButton);
