@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name		StackOverflow Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		0.2
+// @version		0.3
 // @author		Iulian Onofrei
 // @updateURL	https://gist.github.com/raw/9dfa8fb9faf6322f80313848b91d479c/StackOverflow_Enhancer.user.js
 // @match		http*://stackoverflow.com/questions/*
 // @match		http*://meta.stackoverflow.com/questions/*
 // @match		http*://superuser.com/questions/*
+// @match		http*://serverfault.com/questions/*
 // @match		http*://*.stackexchange.com/questions/*
 // @require		https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
 // @grant		GM_addStyle
