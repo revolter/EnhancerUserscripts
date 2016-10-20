@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name		StackOverflow Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		0.3
+// @version		0.4
 // @author		Iulian Onofrei
 // @updateURL	https://gist.github.com/raw/9dfa8fb9faf6322f80313848b91d479c/StackOverflow_Enhancer.user.js
 // @match		http*://stackoverflow.com/questions/*
+// @match		http*://stackoverflow.com/posts/*
 // @match		http*://meta.stackoverflow.com/questions/*
 // @match		http*://superuser.com/questions/*
 // @match		http*://serverfault.com/questions/*
@@ -22,7 +23,8 @@ min.gm.style([{
 		"width": "calc(100% - 320px)"
 	}
 }, {
-	".ask-title-table, .actual-edit-overlay, #questions, .question-summary, #question, #answers, #answers-header, #post-editor, #wmd-input, #wmd-preview, .question table, .answer table, .postcell, .answercell, .post-text, .answer, .comments": {
+	".ask-title-table, .actual-edit-overlay, #questions, .question-summary, #question, #answers, #answers-header, #post-editor, #wmd-input, #wmd-preview, .question table, .answer table, .postcell, .answercell, .post-text, .answer, .comments,\
+	.wmd-button-bar, .wmd-input.processed, .wmd-preview, .form-item > table, .post-editor": {
 		"width": "100%"
 	}
 }, {
