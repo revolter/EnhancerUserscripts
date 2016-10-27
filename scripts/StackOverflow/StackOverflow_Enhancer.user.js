@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		StackOverflow Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		0.4
+// @version		0.5
 // @author		Iulian Onofrei
 // @updateURL	https://gist.github.com/raw/9dfa8fb9faf6322f80313848b91d479c/StackOverflow_Enhancer.user.js
 // @match		http*://stackoverflow.com/questions/*
@@ -14,42 +14,39 @@
 // @grant		GM_addStyle
 // ==/UserScript==
 
-min.gm.style([{
+min.gm.style({
 	"#content": {
 		"width": "90%"
-	}
-}, {
+	},
 	"#mainbar": {
 		"width": "calc(100% - 320px)"
-	}
-}, {
-	".ask-title-table, .actual-edit-overlay, #questions, .question-summary, #question, #answers, #answers-header, #post-editor, #wmd-input, #wmd-preview, .question table, .answer table, .postcell, .answercell, .post-text, .answer, .comments,\
-	.wmd-button-bar, .wmd-input.processed, .wmd-preview, .form-item > table, .post-editor": {
+	},
+	".ask-title-table, .actual-edit-overlay, #questions, .question-summary, #question, #answers, #answers-header, #post-editor": {
 		"width": "100%"
-	}
-}, {
+	},
+	"#wmd-input, #wmd-preview, .question table, .answer table, .postcell, .answercell, .post-text, .answer, .comments": {
+		"width": "100%"
+	},
+	".wmd-button-bar, .wmd-input.processed, .wmd-preview, .form-item > table, .post-editor": {
+		"width": "100%"
+	},
 	"#title": {
 		"width": "calc(100% - 40px)"
-	}
-}, {
+	},
 	".actual-edit-overlay": {
 		"width": "calc(100% - 80px)"
-	}
-}, {
+	},
 	".grippie": {
 		"background-position": "50% -364px",
 		"width": "calc(100% - 2px)"
-	}
-}, {
+	},
 	".summary": {
 		"width": "calc(100% - 94px)"
-	}
-}, {
+	},
 	".comments textarea": {
 		"width": "calc(100% - 22px)"
-	}
-}, {
+	},
 	"#wmd-button-bar": {
 		"width": "calc(100% - 26px)"
 	}
-}]);
+});
