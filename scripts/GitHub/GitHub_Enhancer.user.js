@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		GitHub Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		0.7
+// @version		0.8
 // @author		Iulian Onofrei
 // @updateURL	https://gist.github.com/raw/187bc89d5e48990dfc38c02bcd5460c2/GitHub_Enhancer.user.js
 // @match		https://gist.github.com/*/*
@@ -46,25 +46,21 @@ if (min.isOnPath("notifications")) {
 
 	min.dom.insertAfter(rawScriptButton, rawButton);
 } else {
-	min.gm.style([{
+	min.gm.style({
 		".container": {
 			"width": "90%"
-		}
-	}, {
+		},
 		"#js-repo-pjax-container": {
 			"width": "100%"
-		}
-	}, {
+		},
 		".container.new-discussion-timeline": {
 			"width": "calc(100% - 150px)"
-		}
-	}, {
+		},
 		".discussion-timeline": {
 			"width": "calc(100% - 240px)"
-		}
-	}, {
+		},
 		".js-comment-container, .timeline-comment-wrapper": {
 			"max-width": "100%"
 		}
-	}]);
+	});
 }
