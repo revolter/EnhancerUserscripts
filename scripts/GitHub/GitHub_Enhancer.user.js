@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		GitHub Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		0.8
+// @version		0.9
 // @author		Iulian Onofrei
 // @updateURL	https://gist.github.com/raw/187bc89d5e48990dfc38c02bcd5460c2/GitHub_Enhancer.user.js
 // @match		https://gist.github.com/*/*
@@ -24,6 +24,18 @@ if (min.isOnPath("notifications")) {
 		}
 
 		notification.textContent = "(" + prefix + ") " + notification.textContent;
+	});
+
+	min.gm.style({
+		".page-content.container": {
+			"width": "90%"
+		},
+		".list-group-item-name.css-truncate": {
+			"max-width": "calc(100% - 300px)"
+		},
+		".list-group-item-link": {
+			"max-width": "100%"
+		}
 	});
 } else if (min.isOnWebsite("gist.github")) {
 	var
