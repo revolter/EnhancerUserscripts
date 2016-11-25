@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		YouTube Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		0.2
+// @version		0.3
 // @author		Iulian Onofrei
 // @updateURL	https://gist.github.com/raw/c6ca9ed14d388e6e7e8278cebc3dfb29/YouTube_Enhancer.user.js
 // @match		https://youtube.com/*
@@ -34,7 +34,11 @@
 	}, min.dom.getById("page"), {attributes: true});
 
 	min.gm.style({
-		".io-wide #masthead-positioner, .io-wide #masthead-positioner-height-offset": {
+		".io-wide #masthead-positioner": {
+            "position": "absolute",
+            "top": window.innerHeight + "px"
+        },
+        ".io-wide #masthead-positioner-height-offset": {
 			"display": "none"
 		},
 		".io-wide #player": {
@@ -57,6 +61,9 @@
 		".io-wide .ytp-chrome-bottom": {
 			"width": "100%",
 			"left": "0"
-		}
+		},
+        ".io-wide #content": {
+            "margin-top": "60px"
+        }
 	});
 })();
