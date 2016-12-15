@@ -1,12 +1,11 @@
 // ==UserScript==
 // @name		GitHub Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		0.9
+// @version		1.0
 // @author		Iulian Onofrei
 // @updateURL	https://gist.github.com/raw/187bc89d5e48990dfc38c02bcd5460c2/GitHub_Enhancer.user.js
 // @match		https://gist.github.com/*/*
 // @match		https://github.com/*
-// @match		https://github.com/notifications
 // @require		https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
 // @grant		GM_addStyle
 // ==/UserScript==
@@ -37,42 +36,45 @@ if (min.isOnPath("notifications")) {
 			"max-width": "100%"
 		}
 	});
+} else if (min.isOnPath(/[^\/]+\/blob\/.+/)) {
+	var
+		actionsBar = min.dom.getByClassName("file-actions"),
+		permalinkShortcutLink = min.dom.getByClassName("js-permalink-shortcut"),
+		permalinkButton = document.createElement("a");
+
+	permalinkButton.text = "Permalink";
+	permalinkButton.className = "btn btn-sm";
+	permalinkButton.href = permalinkShortcutLink.href;
+
+	min.dom.insertBefore(permalinkButton, actionsBar.firstElementChild);
 } else if (min.isOnWebsite("gist.github")) {
 	var
-		rawButton = min.dom.getByClassName("file-actions"),
-		rawScriptButton = rawButton.cloneNode(true),
-		rawScriptButtonLink = min.dom.getByTagName("a", 0, rawScriptButton);
+		actionsBar = min.dom.getByClassName("file-actions"),
+		rawButton = min.dom.getByXPath("//a[contains(@class, 'btn btn-sm') and text() = 'Raw']"),
+		rawScriptButton = document.createElement("a");
 
-	rawScriptButtonLink.textContent = "Raw Script";
-	rawScriptButtonLink.href = rawScriptButtonLink.href.replace(/revolter(\/[^\/]+)\/raw\/[^\/]+/, "raw$1");
+	rawScriptButton.text = "Raw Script";
+	rawScriptButton.className = "btn btn-sm";
+	rawScriptButton.style.cssText = "margin-left: 5px";
+	rawScriptButton.href = rawButton.href.replace(/revolter(\/[^\/]+)\/raw\/[^\/]+/, "raw$1");
 
-	min.dom.style(rawScriptButtonLink, {
-		"margin-right": "10px"
-	});
-
-	min.gm.style({
-		".container": {
-			"width": "90%"
-		}
-	});
-
-	min.dom.insertAfter(rawScriptButton, rawButton);
-} else {
-	min.gm.style({
-		".container": {
-			"width": "90%"
-		},
-		"#js-repo-pjax-container": {
-			"width": "100%"
-		},
-		".container.new-discussion-timeline": {
-			"width": "calc(100% - 150px)"
-		},
-		".discussion-timeline": {
-			"width": "calc(100% - 240px)"
-		},
-		".js-comment-container, .timeline-comment-wrapper": {
-			"max-width": "100%"
-		}
-	});
+	min.dom.insertAfter(rawScriptButton, actionsBar.lastElementChild);
 }
+
+min.gm.style({
+	".container": {
+		"width": "90%"
+	},
+	"#js-repo-pjax-container": {
+		"width": "100%"
+	},
+	".container.new-discussion-timeline": {
+		"width": "calc(100% - 150px)"
+	},
+	".discussion-timeline": {
+		"width": "calc(100% - 240px)"
+	},
+	".js-comment-container, .timeline-comment-wrapper": {
+		"max-width": "100%"
+	}
+});
