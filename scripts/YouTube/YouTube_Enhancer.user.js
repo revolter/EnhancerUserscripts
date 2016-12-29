@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		YouTube Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		0.4
+// @version		0.5
 // @author		Iulian Onofrei
 // @updateURL	https://gist.github.com/raw/c6ca9ed14d388e6e7e8278cebc3dfb29/YouTube_Enhancer.user.js
 // @match		https://youtube.com/*
@@ -47,6 +47,7 @@
 		".io-wide .player-height": {
 			"width": "100%",
 			"height": "100%",
+            "top": "0",
 			"left": "-50%"
 		},
 		".io-wide .html5-video-container": {
