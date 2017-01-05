@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		GitHub Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		1.1
+// @version		1.2
 // @author		Iulian Onofrei
 // @updateURL	https://gist.github.com/raw/187bc89d5e48990dfc38c02bcd5460c2/GitHub_Enhancer.user.js
 // @match		https://gist.github.com/*/*
@@ -63,6 +63,10 @@ if (min.isOnPath("notifications")) {
 		headerWidth = header.offsetWidth,
 		headerHeight = header.offsetHeight,
 		dummyHeader = document.createElement("div");
+
+	if (window.scrollY > 0) {
+		window.scrollBy(0, - (headerHeight + 15));
+	}
 
 	dummyHeader.className = "io-dummy-header";
 
