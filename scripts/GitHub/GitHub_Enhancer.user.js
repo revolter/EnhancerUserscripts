@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		GitHub Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		1.2
+// @version		1.3
 // @author		Iulian Onofrei
 // @updateURL	https://gist.github.com/raw/187bc89d5e48990dfc38c02bcd5460c2/GitHub_Enhancer.user.js
 // @match		https://gist.github.com/*/*
@@ -25,7 +25,10 @@ min.gm.style({
 	},
 	".js-comment-container, .timeline-comment-wrapper": {
 		"max-width": "100%"
-	}
+	},
+    ".css-truncate-target": {
+        "max-width": "100%"
+    }
 });
 
 if (min.isOnPath("notifications")) {
