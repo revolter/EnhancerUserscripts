@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name        Crittercism Enhancer
 // @namespace   http://iulianonofrei.com
+// @version		0.2
 // @author      Iulian Onofrei
+// @updateURL	https://gist.github.com/raw/961a253119dedf64a5623de79ea19542/Crittercism_Enhancer.user.js
 // @include     https://app.crittercism.com/*
 // @require		https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
 // @grant       GM_addStyle
