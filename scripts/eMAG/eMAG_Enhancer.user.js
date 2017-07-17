@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         eMAG Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      0.3
+// @version      0.4
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/11dd7546dceceb569596c71125304597/eMAG_Enhancer.user.js
 // @match        https://www.emag.ro/history/shopping*
@@ -22,9 +22,11 @@
         min.gm.xhr(link.href, function(doc) {
             var products = Array.from(min.dom.getByXPath("//ul[contains(@class, 'product-list')]/li", min.dom.ALL, doc));
 
-            console.log(products);
-
             min.forEach(products, function(product) {
+                var image = min.dom.getByTagName("img", 0, product);
+
+                image.style.marginRight = "10px";
+
                 order.appendChild(product);
             });
         });
