@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         eMAG Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      0.2
+// @version      0.3
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/11dd7546dceceb569596c71125304597/eMAG_Enhancer.user.js
 // @match        https://www.emag.ro/history/shopping*
@@ -20,26 +20,13 @@
         }
 
         min.gm.xhr(link.href, function(doc) {
-            var
-                index,
-                images = Array.from(min.dom.getByClassName("product-img", min.dom.ALL, doc)),
-                descriptions = min.dom.getByClassName("product-description", min.dom.ALL, doc);
+            var products = Array.from(min.dom.getByXPath("//ul[contains(@class, 'product-list')]/li", min.dom.ALL, doc));
 
-            for (index = 0; index < images.length && index < descriptions.length; index++) {
-                var
-                    image = images[index],
-                    description = descriptions[index],
-                    figure = document.createElement("figure"),
-                    figcaption = document.createElement("figcaption");
+            console.log(products);
 
-                figure.style.margin = "0";
-                figcaption.innerText = description.innerText.trim();
-
-                figure.appendChild(image);
-                figure.appendChild(figcaption);
-
-                order.appendChild(figure);
-            }
+            min.forEach(products, function(product) {
+                order.appendChild(product);
+            });
         });
     });
 })();
