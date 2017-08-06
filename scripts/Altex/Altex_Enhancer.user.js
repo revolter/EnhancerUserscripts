@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Altex Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      0.3
+// @version      0.4
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/7ac990d744d61db126742beefa49870c/Altex_Enhancer.user.js
 // @match        https://altex.ro/sales/order/history/
@@ -15,7 +15,8 @@
     min.forEach(min.dom.getByXPath("//div[@class = 'my-account']/div[@class = 'u-container-reset']/table/tbody/tr", min.dom.ALL), function(order) {
         var
             link = min.dom.getByXPath("/td/div/a", 0, order),
-            linkWrapper = order.lastElementChild;
+            linkWrapper = order.lastElementChild,
+            orderStatus = linkWrapper.previousElementSibling.firstElementChild;
 
         if (!link) {
             return;
@@ -23,10 +24,12 @@
 
         linkWrapper.rowSpan = "2";
 
+        if (orderStatus.textContent === "Confirmat integral") {
+            order.style.backgroundColor = "rgba(0, 128, 0, 0.2)";
+        }
+
         min.gm.xhr(link.href, function(doc) {
             var products = Array.from(min.dom.getByXPath("//table[@id = 'my-orders-table']/tbody/tr", min.dom.ALL, doc));
-
-            console.debug(products);
 
             min.forEach(products, function(product) {
                 product.style.backgroundColor = "#EEE";
