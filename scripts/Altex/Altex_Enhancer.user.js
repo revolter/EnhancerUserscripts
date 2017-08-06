@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name         Altex Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      0.1
+// @version      0.2
 // @author       Iulian Onofrei
+// @updateURL    https://gist.github.com/raw/7ac990d744d61db126742beefa49870c/Altex_Enhancer.user.js
 // @match        https://altex.ro/sales/order/history/
 // @require      https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
 // @grant        GM_xmlhttpRequest
