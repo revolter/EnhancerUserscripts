@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Altex Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      0.5
+// @version      0.6
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/7ac990d744d61db126742beefa49870c/Altex_Enhancer.user.js
-// @match        https://altex.ro/sales/order/history/
+// @match        https://altex.ro/sales/order/history/*
 // @require      https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
@@ -35,6 +35,13 @@
             var products = Array.from(min.dom.getByXPath("//table[@id = 'my-orders-table']/tbody/tr", min.dom.ALL, doc));
 
             min.forEach(products, function(product) {
+                var
+                    productTitle = min.dom.getByXPath("/td[1]/div", 0, product),
+                    productTitleText = productTitle.textContent,
+                    productSlug = productTitleText.replace(/\W+/g, "-").toLowerCase();
+
+                productTitle.innerHTML = "<a href='https://altex.ro/" + productSlug + "'>" + productTitleText + "</a>";
+
                 product.style.backgroundColor = isOrderConfirmed ? confirmedOrderBackgroundColor : "#EEE";
 
                 min.dom.insertAfter(product, order);
