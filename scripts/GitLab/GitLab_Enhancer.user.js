@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name         GitLab Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      0.1
+// @version      0.2
 // @author       Iulian Onofrei
+// @updateURL    https://gist.github.com/raw/6aef77d50c269aa6d2bfa67362dd6eae/GitLab_Enhancer.user.js
 // @match        https://gitlab.com/*/milestones/*
 // @require      https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
 // @grant        none
