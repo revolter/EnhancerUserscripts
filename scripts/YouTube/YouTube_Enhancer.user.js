@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      0.6
+// @version      0.7
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/c6ca9ed14d388e6e7e8278cebc3dfb29/YouTube_Enhancer.user.js
 // @match        https://youtube.com/*
@@ -41,7 +41,7 @@
         min.dom.addObserver(function (mutations) {
             var element = mutations[0].target;
 
-            checkWide(node);
+            checkWide(element);
         }, target, {attributes: true, childNodes: true});
     });
 
