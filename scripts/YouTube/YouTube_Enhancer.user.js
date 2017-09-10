@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      1.0
+// @version      1.1
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/c6ca9ed14d388e6e7e8278cebc3dfb29/YouTube_Enhancer.user.js
 // @match        https://youtube.com/*
@@ -64,7 +64,7 @@
     });
 
     min.gm.style({
-        ".io-wide #masthead-container": {
+        ".io-wide ytd-app:not([guide-persistent-and-visible]) #masthead-container": {
             "position": "absolute",
             "top": window.innerHeight + "px"
         },
