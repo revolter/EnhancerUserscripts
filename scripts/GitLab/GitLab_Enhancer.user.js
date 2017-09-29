@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GitLab Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      0.3
+// @version      0.4
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/6aef77d50c269aa6d2bfa67362dd6eae/GitLab_Enhancer.user.js
 // @match        https://gitlab.com/*/boards*
@@ -13,7 +13,9 @@
 (function() {
     'use strict';
 
-    var buttonsWrapper, newIssueUrl, newIssueButtonHTML;
+    var
+        template = document.createElement("template"),
+        buttonsWrapper, newIssueUrl, newIssueButtonHTML;
 
     if (min.isOnPath("boards")) {
         buttonsWrapper = min.dom.getByClassName("filter-dropdown-container");
@@ -27,5 +29,7 @@
         newIssueButtonHTML = "<a class='hidden-xs hidden-sm btn btn-grouped new-issue-link btn-new btn-inverted' title='New issue' id='new_issue_link' href='" + newIssueUrl + "'>New issue</a>";
     }
 
-    buttonsWrapper.innerHTML = newIssueButtonHTML + buttonsWrapper.innerHTML;
+    template.innerHTML = newIssueButtonHTML;
+
+    min.dom.insertBefore(template.content, buttonsWrapper.firstChild);
 })();
