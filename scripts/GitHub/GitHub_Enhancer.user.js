@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		GitHub Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		1.3
+// @version		1.4
 // @author		Iulian Onofrei
 // @updateURL	https://gist.github.com/raw/187bc89d5e48990dfc38c02bcd5460c2/GitHub_Enhancer.user.js
 // @match		https://gist.github.com/*/*
@@ -81,7 +81,7 @@ if (min.isOnPath("notifications")) {
 			"top": "0",
 			"left": headerAbsoluteLeft + "px",
 			"width": headerWidth + "px",
-			"z-index": "1",
+			"z-index": "999",
 			"background-color": "white"
 		},
 		".io-dummy-header": {
