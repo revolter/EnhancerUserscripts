@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Altex Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      0.6
+// @version      0.7
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/7ac990d744d61db126742beefa49870c/Altex_Enhancer.user.js
 // @match        https://altex.ro/sales/order/history/*
@@ -25,14 +25,14 @@
             return;
         }
 
-        linkWrapper.rowSpan = "2";
-
         if (isOrderConfirmed) {
             order.style.backgroundColor = confirmedOrderBackgroundColor;
         }
 
         min.gm.xhr(link.href, function(doc) {
             var products = Array.from(min.dom.getByXPath("//table[@id = 'my-orders-table']/tbody/tr", min.dom.ALL, doc));
+
+            linkWrapper.rowSpan = products.length + 1;
 
             min.forEach(products, function(product) {
                 var
