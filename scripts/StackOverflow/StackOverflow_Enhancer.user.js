@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		StackOverflow Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		0.7
+// @version		0.8
 // @author		Iulian Onofrei
 // @updateURL	https://gist.github.com/raw/9dfa8fb9faf6322f80313848b91d479c/StackOverflow_Enhancer.user.js
 // @match		http*://stackoverflow.com/questions/*
@@ -21,7 +21,7 @@ min.gm.style({
 	"#mainbar": {
 		"width": "calc(100% - 320px)"
 	},
-	".ask-title-table, .actual-edit-overlay, #questions, .question-summary, #question, #answers, #answers-header, #post-editor": {
+	".inner-content, .ask-title-table, .actual-edit-overlay, #questions, .question-summary, #question, #answers, #answers-header, #post-editor": {
 		"width": "100%"
 	},
 	"#wmd-input, #wmd-preview, .question table, .answer table, .postcell, .post-text, .answercell, .answer, .comments": {
