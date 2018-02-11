@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      1.3
+// @version      1.4
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/c6ca9ed14d388e6e7e8278cebc3dfb29/YouTube_Enhancer.user.js
 // @match        https://youtube.com/*
@@ -13,7 +13,7 @@
 (function() {
     'use strict';
 
-    var KeyCode = {
+    var Key = {
         LeftArrow: 37,
         UpArrow: 38,
         RightArrow: 39,
@@ -21,6 +21,15 @@
 
         Zero: 48
     };
+
+    var Volume = {
+        Min: 0,
+        Max: 100,
+        Step: 5
+    };
+
+    var DefaultPlaybackSeekStep = 5;
+    var DefaultPlaybackRate = 1;
 
     var player;
 
@@ -42,12 +51,88 @@
         setWide(isWide);
     }
 
+    function seekByTime(event) {
+        if (event.shiftKey) {
+            return;
+        }
+
+        var key = event.keyCode;
+
+        if (key != Key.LeftArrow && key != Key.RightArrow) {
+            return;
+        }
+
+        var nextSeek;
+
+        switch (key) {
+            case Key.LeftArrow: {
+                nextSeek = - DefaultPlaybackSeekStep;
+
+                break;
+            }
+            case Key.RightArrow: {
+                nextSeek = DefaultPlaybackSeekStep;
+
+                break;
+            }
+        }
+
+        player.seekBy(nextSeek);
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+    }
+
+    function setVolume(event) {
+        if (event.shiftKey) {
+            return;
+        }
+
+        var key = event.keyCode;
+
+        if (key != Key.UpArrow && key != Key.DownArrow) {
+            return;
+        }
+
+        var currentVolume = player.getVolume();
+
+        var nextVolume;
+
+        switch (key) {
+            case Key.UpArrow: {
+                nextVolume = currentVolume + Volume.Step;
+
+                break;
+            }
+            case Key.DownArrow: {
+                nextVolume = currentVolume - Volume.Step;
+
+                break;
+            }
+        }
+
+        if (nextVolume < Volume.Min) {
+            nextVolume = Volume.Min;
+        }
+
+        if (nextVolume > Volume.Max) {
+            nextVolume = Volume.Max;
+        }
+
+        player.setVolume(nextVolume);
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+    }
+
     function seekByFrame(event) {
         if (!event.shiftKey) {
             return;
         }
 
-        if (event.keyCode != KeyCode.LeftArrow && event.keyCode != KeyCode.RightArrow) {
+        var key = event.keyCode;
+
+        if (key != Key.LeftArrow && key != Key.RightArrow) {
             return;
         }
 
@@ -71,7 +156,7 @@
             fps = 30;
         }
 
-        fps = ((event.keyCode < KeyCode.RightArrow && -1) || 1) * ((fps < 2 && 30) || fps);
+        fps = ((key < Key.RightArrow && -1) || 1) * ((fps < 2 && 30) || fps);
 
         if (fps && player) {
             if (!player.paused) {
@@ -90,7 +175,9 @@
             return;
         }
 
-        if (event.keyCode != KeyCode.UpArrow && event.keyCode != KeyCode.DownArrow && event.keyCode != KeyCode.Zero) {
+        var key = event.keyCode;
+
+        if (key != Key.UpArrow && key != Key.DownArrow && key != Key.Zero) {
             return;
         }
 
@@ -105,18 +192,18 @@
 
         var nextRateIndex;
 
-        switch (event.keyCode) {
-            case KeyCode.Zero: {
-                nextRateIndex = availableRates.indexOf(1);
+        switch (key) {
+            case Key.Zero: {
+                nextRateIndex = availableRates.indexOf(DefaultPlaybackRate);
 
                 break;
             }
-            case KeyCode.UpArrow: {
+            case Key.UpArrow: {
                 nextRateIndex = currentRateIndex + 1;
 
                 break;
             }
-            case KeyCode.DownArrow: {
+            case Key.DownArrow: {
                 nextRateIndex = currentRateIndex - 1;
 
                 break;
@@ -142,6 +229,9 @@
 
     min.dom.onNodeExists(min.dom.getById, "movie_player", function(node) {
         player = node;
+
+        document.addEventListener("keydown", seekByTime, true);
+        document.addEventListener("keydown", setVolume, true);
 
         document.addEventListener("keydown", seekByFrame, true);
         document.addEventListener("keydown", setPlaybackRate, true);
