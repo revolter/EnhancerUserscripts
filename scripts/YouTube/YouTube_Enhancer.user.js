@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      1.1
+// @version      1.2
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/c6ca9ed14d388e6e7e8278cebc3dfb29/YouTube_Enhancer.user.js
 // @match        https://youtube.com/*
@@ -12,6 +12,8 @@
 
 (function() {
     'use strict';
+
+    var player;
 
     function setWide(isWide) {
         if (isWide) {
@@ -31,9 +33,58 @@
         setWide(isWide);
     }
 
+    function seekByFrame(event) {
+        if (!event.shiftKey) {
+            return;
+        }
+
+        if (event.keyCode != 37 && event.keyCode != 39) {
+            return;
+        }
+
+        var fps;
+
+        if (window.ytplayer && window.ytplayer.config && window.ytplayer.config.args && window.ytplayer.config.args.adaptive_fmts) {
+            var pi = player.getVideoStats().fmt;
+            var temp = window.ytplayer.config.args.adaptive_fmts.split(",");
+            var i = temp.length;
+
+            while (i--) {
+                if (temp[i].indexOf("itag=" + pi) > 0) {
+                    fps = parseInt(temp[i].match(/fps=([\d]+)/)[1]);
+
+                    break;
+                }
+            }
+        }
+
+        if (!fps || fps === 1) {
+            fps = 30;
+        }
+
+        fps = ((event.keyCode < 39 && -1) || 1) * ((fps < 2 && 30) || fps);
+
+        if (fps && player) {
+            if (!player.paused) {
+                player.pauseVideo();
+            }
+
+            player.seekBy(1 / fps);
+        }
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+    }
+
     var isWide = min.dom.getByClassName("watch-wide");
 
     setWide(isWide);
+
+    min.dom.onNodeExists(min.dom.getById, "movie_player", function(node) {
+        player = node;
+
+        document.addEventListener("keydown", seekByFrame, true);
+    });
 
     min.dom.onNodeExists(min.dom.getByClassName, "ytp-size-button", function(target) {
         checkWide(target);
