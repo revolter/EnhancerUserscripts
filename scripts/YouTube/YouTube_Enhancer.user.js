@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      1.2
+// @version      1.3
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/c6ca9ed14d388e6e7e8278cebc3dfb29/YouTube_Enhancer.user.js
 // @match        https://youtube.com/*
@@ -12,6 +12,15 @@
 
 (function() {
     'use strict';
+
+    var KeyCode = {
+        LeftArrow: 37,
+        UpArrow: 38,
+        RightArrow: 39,
+        DownArrow: 40,
+
+        Zero: 48
+    };
 
     var player;
 
@@ -38,7 +47,7 @@
             return;
         }
 
-        if (event.keyCode != 37 && event.keyCode != 39) {
+        if (event.keyCode != KeyCode.LeftArrow && event.keyCode != KeyCode.RightArrow) {
             return;
         }
 
@@ -62,7 +71,7 @@
             fps = 30;
         }
 
-        fps = ((event.keyCode < 39 && -1) || 1) * ((fps < 2 && 30) || fps);
+        fps = ((event.keyCode < KeyCode.RightArrow && -1) || 1) * ((fps < 2 && 30) || fps);
 
         if (fps && player) {
             if (!player.paused) {
@@ -76,6 +85,57 @@
         event.stopImmediatePropagation();
     }
 
+    function setPlaybackRate(event) {
+        if (!event.shiftKey) {
+            return;
+        }
+
+        if (event.keyCode != KeyCode.UpArrow && event.keyCode != KeyCode.DownArrow && event.keyCode != KeyCode.Zero) {
+            return;
+        }
+
+        var
+            availableRates = player.getAvailablePlaybackRates(),
+            currentRate = player.getPlaybackRate(),
+            currentRateIndex = availableRates.indexOf(currentRate);
+
+        if (currentRateIndex == -1) {
+            return;
+        }
+
+        var nextRateIndex;
+
+        switch (event.keyCode) {
+            case KeyCode.Zero: {
+                nextRateIndex = availableRates.indexOf(1);
+
+                break;
+            }
+            case KeyCode.UpArrow: {
+                nextRateIndex = currentRateIndex + 1;
+
+                break;
+            }
+            case KeyCode.DownArrow: {
+                nextRateIndex = currentRateIndex - 1;
+
+                break;
+            }
+        }
+
+        // prevent the volume listener to be called when holding down the shift key
+        event.preventDefault();
+        event.stopImmediatePropagation();
+
+        if (nextRateIndex < 0 || nextRateIndex >= availableRates.length) {
+            return;
+        }
+
+        var nextRate = availableRates[nextRateIndex];
+
+        player.setPlaybackRate(nextRate);
+    }
+
     var isWide = min.dom.getByClassName("watch-wide");
 
     setWide(isWide);
@@ -84,6 +144,7 @@
         player = node;
 
         document.addEventListener("keydown", seekByFrame, true);
+        document.addEventListener("keydown", setPlaybackRate, true);
     });
 
     min.dom.onNodeExists(min.dom.getByClassName, "ytp-size-button", function(target) {
