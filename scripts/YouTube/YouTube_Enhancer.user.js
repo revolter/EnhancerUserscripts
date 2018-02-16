@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      1.4
+// @version      1.5
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/c6ca9ed14d388e6e7e8278cebc3dfb29/YouTube_Enhancer.user.js
 // @match        https://youtube.com/*
@@ -20,6 +20,12 @@
         DownArrow: 40,
 
         Zero: 48
+    };
+
+    var Direction = {
+        None: 0,
+        Horizontal: 1,
+        Vertical: 2
     };
 
     var Volume = {
@@ -51,16 +57,52 @@
         setWide(isWide);
     }
 
+    function shouldHandleEvent(event, direction) {
+        if (event.target instanceof HTMLInputElement) {
+            return false;
+        }
+
+        if (event.target instanceof HTMLTextAreaElement) {
+            return false;
+        }
+
+        var key = event.keyCode;
+
+        console.log("KEY:", key);
+
+        switch (direction) {
+            case Direction.None: {
+                break;
+            }
+            case Direction.Horizontal: {
+                if (key != Key.LeftArrow && key != Key.RightArrow) {
+                    return false;
+                }
+
+                break;
+            }
+            case Direction.Vertical: {
+                if (key != Key.UpArrow && key != Key.DownArrow) {
+                    return false;
+                }
+
+                break;
+            }
+        }
+
+        return true;
+    }
+
     function seekByTime(event) {
+        if (!shouldHandleEvent(event, Direction.Horizontal)) {
+            return;
+        }
+
         if (event.shiftKey) {
             return;
         }
 
         var key = event.keyCode;
-
-        if (key != Key.LeftArrow && key != Key.RightArrow) {
-            return;
-        }
 
         var nextSeek;
 
@@ -84,15 +126,15 @@
     }
 
     function setVolume(event) {
+        if (!shouldHandleEvent(event, Direction.Vertical)) {
+            return;
+        }
+
         if (event.shiftKey) {
             return;
         }
 
         var key = event.keyCode;
-
-        if (key != Key.UpArrow && key != Key.DownArrow) {
-            return;
-        }
 
         var currentVolume = player.getVolume();
 
@@ -119,6 +161,10 @@
             nextVolume = Volume.Max;
         }
 
+        if (player.isMuted()) {
+            player.unMute();
+        }
+
         player.setVolume(nextVolume);
 
         event.preventDefault();
@@ -126,15 +172,15 @@
     }
 
     function seekByFrame(event) {
+        if (!shouldHandleEvent(event, Direction.Horizontal)) {
+            return;
+        }
+
         if (!event.shiftKey) {
             return;
         }
 
         var key = event.keyCode;
-
-        if (key != Key.LeftArrow && key != Key.RightArrow) {
-            return;
-        }
 
         var fps;
 
@@ -171,13 +217,17 @@
     }
 
     function setPlaybackRate(event) {
+        if (!shouldHandleEvent(event, Direction.Vertical)) {
+            return;
+        }
+
         if (!event.shiftKey) {
             return;
         }
 
         var key = event.keyCode;
 
-        if (key != Key.UpArrow && key != Key.DownArrow && key != Key.Zero) {
+        if (key != Key.Zero) {
             return;
         }
 
