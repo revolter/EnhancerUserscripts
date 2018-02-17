@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      1.6
+// @version      1.7
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/c6ca9ed14d388e6e7e8278cebc3dfb29/YouTube_Enhancer.user.js
 // @match        https://youtube.com/*
@@ -33,6 +33,15 @@
         Min: 0,
         Max: 100,
         Step: 5
+    };
+
+    var PlayerState = {
+        Unstarted: -1,
+        Ended: 0,
+        Playing: 1,
+        Paused: 2,
+        Buffering: 3,
+        VideoCued: 5
     };
 
     var DefaultPlaybackSeekStep = 5;
@@ -111,6 +120,8 @@
             } else {
                 setVolume(key);
             }
+        } else if (shouldHandleEvent(event, Direction.None, [Key.Space])) {
+            togglePlay();
         } else {
             // don't fall-through to the propagation stop calls
 
@@ -250,6 +261,27 @@
         player.setPlaybackRate(nextRate);
     }
 
+    function togglePlay() {
+        var playerState = player.getPlayerState();
+
+        switch (playerState) {
+            case PlayerState.Unstarted: // fall-through
+            case PlayerState.Ended: // fall-through
+            case PlayerState.Paused: // fall-through
+            case PlayerState.Buffering: // fall-through
+            case PlayerState.VideoCued: {
+                player.playVideo();
+
+                break;
+            }
+            case PlayerState.Playing: {
+                player.pauseVideo();
+
+                break;
+            }
+        }
+    }
+
     var isWide = min.dom.getByClassName("watch-wide");
 
     setWide(isWide);
@@ -257,11 +289,6 @@
     min.dom.onNodeExists(min.dom.getById, "movie_player", function(node) {
         player = node;
 
-        // document.addEventListener("keydown", seekByTime, true);
-        // document.addEventListener("keydown", setVolume, true);
-
-        // document.addEventListener("keydown", seekByFrame, true);
-        // document.addEventListener("keydown", setPlaybackRate, true);
         document.addEventListener("keydown", onKeyDown, true);
     });
 
