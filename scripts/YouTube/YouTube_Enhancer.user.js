@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      1.8
+// @version      1.9
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/c6ca9ed14d388e6e7e8278cebc3dfb29/YouTube_Enhancer.user.js
 // @match        https://youtube.com/*
@@ -47,7 +47,7 @@
     var DefaultPlaybackSeekStep = 5;
     var DefaultPlaybackRate = 1;
 
-    var player;
+    var player, info, infoText, infoDelay;
 
     function setWide(isWide) {
         if (isWide) {
@@ -65,6 +65,22 @@
         var isWide = element.title == "Default view";
 
         setWide(isWide);
+    }
+
+    function notify(text) {
+        clearTimeout(infoDelay);
+
+        info.style.display = "none";
+
+        setTimeout(function () {
+            infoText.textContent = text;
+
+            info.style.display = "block";
+
+            infoDelay = setTimeout(function() {
+                info.style.display = "none";
+            }, 500);
+        }, 1);
     }
 
     function shouldHandleEvent(event, direction, keys) {
@@ -182,6 +198,8 @@
         }
 
         player.setVolume(nextVolume);
+
+        notify(nextVolume + "%");
     }
 
     function seekByFrame(key) {
@@ -259,6 +277,8 @@
         var nextRate = availableRates[nextRateIndex];
 
         player.setPlaybackRate(nextRate);
+
+        notify(nextRate + "x");
     }
 
     function togglePlay() {
@@ -320,7 +340,22 @@
         }, target, {attributes: true});
     });
 
+    min.dom.onNodeExists(min.dom.getByClassName, "ytp-bezel", function(target) {
+        info = target;
+
+        min.dom.removeNode(info.firstChild);
+
+        infoText = document.createElement("p");
+
+        info.appendChild(infoText);
+    });
+
     min.gm.style({
+        ".ytp-bezel p": {
+            "margin": "0",
+            "text-align": "center",
+            "line-height": "52px"
+        },
         ".io-wide ytd-app:not([guide-persistent-and-visible]) #masthead-container": {
             "position": "absolute",
             "top": window.innerHeight + "px"
