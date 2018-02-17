@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      1.5
+// @version      1.6
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/c6ca9ed14d388e6e7e8278cebc3dfb29/YouTube_Enhancer.user.js
 // @match        https://youtube.com/*
@@ -19,7 +19,8 @@
         RightArrow: 39,
         DownArrow: 40,
 
-        Zero: 48
+        Zero: 48,
+        Space: 32
     };
 
     var Direction = {
@@ -57,7 +58,7 @@
         setWide(isWide);
     }
 
-    function shouldHandleEvent(event, direction) {
+    function shouldHandleEvent(event, direction, keys) {
         if (event.target instanceof HTMLInputElement) {
             return false;
         }
@@ -68,10 +69,12 @@
 
         var key = event.keyCode;
 
-        console.log("KEY:", key);
-
         switch (direction) {
             case Direction.None: {
+                if (keys.indexOf(key) === -1) {
+                    return false;
+                }
+
                 break;
             }
             case Direction.Horizontal: {
@@ -93,17 +96,32 @@
         return true;
     }
 
-    function seekByTime(event) {
-        if (!shouldHandleEvent(event, Direction.Horizontal)) {
-            return;
-        }
-
-        if (event.shiftKey) {
-            return;
-        }
-
+    function onKeyDown(event) {
         var key = event.keyCode;
 
+        if (shouldHandleEvent(event, Direction.Horizontal)) {
+            if (event.shiftKey) {
+                seekByFrame(key);
+            } else {
+                seekByTime(key);
+            }
+        } else if (shouldHandleEvent(event, Direction.Vertical) || shouldHandleEvent(event, Direction.None, [Key.Zero])) {
+            if (event.shiftKey) {
+                setPlaybackRate(event);
+            } else {
+                setVolume(key);
+            }
+        } else {
+            // don't fall-through to the propagation stop calls
+
+            return;
+        }
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+    }
+
+    function seekByTime(key) {
         var nextSeek;
 
         switch (key) {
@@ -120,22 +138,9 @@
         }
 
         player.seekBy(nextSeek);
-
-        event.preventDefault();
-        event.stopImmediatePropagation();
     }
 
-    function setVolume(event) {
-        if (!shouldHandleEvent(event, Direction.Vertical)) {
-            return;
-        }
-
-        if (event.shiftKey) {
-            return;
-        }
-
-        var key = event.keyCode;
-
+    function setVolume(key) {
         var currentVolume = player.getVolume();
 
         var nextVolume;
@@ -166,22 +171,9 @@
         }
 
         player.setVolume(nextVolume);
-
-        event.preventDefault();
-        event.stopImmediatePropagation();
     }
 
-    function seekByFrame(event) {
-        if (!shouldHandleEvent(event, Direction.Horizontal)) {
-            return;
-        }
-
-        if (!event.shiftKey) {
-            return;
-        }
-
-        var key = event.keyCode;
-
+    function seekByFrame(key) {
         var fps;
 
         if (window.ytplayer && window.ytplayer.config && window.ytplayer.config.args && window.ytplayer.config.args.adaptive_fmts) {
@@ -211,25 +203,10 @@
 
             player.seekBy(1 / fps);
         }
-
-        event.preventDefault();
-        event.stopImmediatePropagation();
     }
 
     function setPlaybackRate(event) {
-        if (!shouldHandleEvent(event, Direction.Vertical)) {
-            return;
-        }
-
-        if (!event.shiftKey) {
-            return;
-        }
-
         var key = event.keyCode;
-
-        if (key != Key.Zero) {
-            return;
-        }
 
         var
             availableRates = player.getAvailablePlaybackRates(),
@@ -280,11 +257,12 @@
     min.dom.onNodeExists(min.dom.getById, "movie_player", function(node) {
         player = node;
 
-        document.addEventListener("keydown", seekByTime, true);
-        document.addEventListener("keydown", setVolume, true);
+        // document.addEventListener("keydown", seekByTime, true);
+        // document.addEventListener("keydown", setVolume, true);
 
-        document.addEventListener("keydown", seekByFrame, true);
-        document.addEventListener("keydown", setPlaybackRate, true);
+        // document.addEventListener("keydown", seekByFrame, true);
+        // document.addEventListener("keydown", setPlaybackRate, true);
+        document.addEventListener("keydown", onKeyDown, true);
     });
 
     min.dom.onNodeExists(min.dom.getByClassName, "ytp-size-button", function(target) {
