@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      1.10
+// @version      1.11
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/c6ca9ed14d388e6e7e8278cebc3dfb29/YouTube_Enhancer.user.js
 // @match        https://youtube.com/*
@@ -266,12 +266,12 @@
             }
         }
 
-        // prevent the volume listener to be called when holding down the shift key
-        event.preventDefault();
-        event.stopImmediatePropagation();
+        if (nextRateIndex < 0) {
+            nextRateIndex = 0;
+        }
 
-        if (nextRateIndex < 0 || nextRateIndex >= availableRates.length) {
-            return;
+        if (nextRateIndex >= availableRates.length) {
+            nextRateIndex = availableRates.length - 1;
         }
 
         var nextRate = availableRates[nextRateIndex];
