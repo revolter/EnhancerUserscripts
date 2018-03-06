@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		GitHub Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		1.5
+// @version		1.6
 // @author		Iulian Onofrei
 // @updateURL	https://gist.github.com/raw/187bc89d5e48990dfc38c02bcd5460c2/GitHub_Enhancer.user.js
 // @match		https://gist.github.com/*/*
@@ -55,6 +55,9 @@ if (min.isOnPath("notifications")) {
 		},
 		".list-group-item-link": {
 			"max-width": "100%"
+		},
+		".notifications .read .list-group-item-name": {
+			"opacity": "0.4"
 		}
 	});
 } else if (min.isOnPath("/issues/") || min.isOnPath("/pull/")) {
