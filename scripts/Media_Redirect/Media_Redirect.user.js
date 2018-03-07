@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name         Media Redirect
 // @namespace    http://iulianonofrei.com
-// @version      0.4
+// @version      0.5
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/930fc945fe0e8dc220ca040c8d1bafb3/Media_Redirect.user.js
 // @match        https://www.facebook.com/*
 // @match        https://www.google.com/imgres*
+// @match        https://www.google.ro/imgres*
 // @match        https://www.instagram.com/*
 // @require      https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
 // ==/UserScript==
