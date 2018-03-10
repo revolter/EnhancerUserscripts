@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         Media Redirect
 // @namespace    http://iulianonofrei.com
-// @version      0.5
+// @version      0.6
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/930fc945fe0e8dc220ca040c8d1bafb3/Media_Redirect.user.js
+// @match        *://www.commitstrip.com/*
 // @match        https://www.facebook.com/*
 // @match        https://www.google.com/imgres*
 // @match        https://www.google.ro/imgres*
@@ -14,10 +15,20 @@
 (function() {
     'use strict';
 
+    var noRedirectQueryParam = "io-no-redirect=1";
+
+    if (window.location.search.indexOf(noRedirectQueryParam) !== -1) {
+        return;
+    }
+
     function getRedirectURL(completion) {
         var element;
 
-        if (min.isOnWebsite("facebook.com")) {
+        if (min.isOnWebsite("commitstrip.com")) {
+            min.dom.onNodeExists(min.dom.getByXPath, "//img[contains(@class, 'size-full')]/@src", function(element) {
+                completion(element.value);
+            });
+        } else if (min.isOnWebsite("facebook.com")) {
             if (!min.isOnPath("/photo.php")) {
                 completion(null);
             }
@@ -48,6 +59,16 @@
         if (!redirectURL) {
             return;
         }
+
+        var
+            protocol = window.location.protocol,
+            host = window.location.host,
+            path = window.location.pathname,
+            query = window.location.search,
+            noRedirectURL = protocol + "//" + host + path + query + (query ? '&' : '?') + noRedirectQueryParam;
+
+        window.history.pushState(null, null, noRedirectURL);
+        window.history.pushState(null, null, noRedirectURL); // this will be skipped because .href doesn't push in the history
 
         window.location.href = redirectURL;
     });
