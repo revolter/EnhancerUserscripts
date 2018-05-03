@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         V LIVE Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      0.3
+// @version      0.4
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/e798d141e0b0367a8e68c7c68372aa89/V_LIVE_Enhancer.user.js
 // @match        http://www.vlive.tv/video/*
@@ -13,7 +13,7 @@
 
     var
         CUSTOM_SUBTITLE_ID = "io-custom-subtitle",
-        SUBTITLE_PARTS_REGEX = /(\[[^\]]*\])|([^\[]+)/g;
+        SUBTITLE_PARTS_REGEX = /(\[[^\]]*\])|([^\[\n]+)/g;
 
     min.dom.onNodeExists(min.dom.getByXPath, "//div[@data-subtitle-container]", function (container) {
         min.dom.addObserver(function () {
@@ -31,8 +31,10 @@
                 return;
             }
 
+            console.debug(subtitle.innerHTML);
+
             var
-                subtitleText = subtitle.textContent,
+                subtitleText = subtitle.innerHTML.replace(/<br\s*[\/]?>/gi, "\n"),
                 subtitlePartsText = subtitleText.match(SUBTITLE_PARTS_REGEX);
 
             if (!subtitlePartsText || subtitlePartsText.length === 0) {
@@ -61,15 +63,15 @@
                     newSubtitlePart.style.color = "#767676";
 
                     customSubtitle.appendChild(newSubtitlePart);
-
-                    var lineBreak = document.createElement("br");
-
-                    customSubtitle.appendChild(lineBreak);
                 } else if (subtitlePartText.length > 0) {
                     newSubtitlePart = document.createTextNode(subtitlePartText);
 
                     customSubtitle.appendChild(newSubtitlePart);
                 }
+
+                var lineBreak = document.createElement("br");
+
+                customSubtitle.appendChild(lineBreak);
             });
         }, container);
     });
