@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		GitHub Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		1.6
+// @version		1.7
 // @author		Iulian Onofrei
 // @updateURL	https://gist.github.com/raw/187bc89d5e48990dfc38c02bcd5460c2/GitHub_Enhancer.user.js
 // @match		https://gist.github.com/*/*
@@ -19,9 +19,6 @@ min.gm.style({
 	},
 	".container.new-discussion-timeline": {
 		"width": "calc(100% - 150px)"
-	},
-	".discussion-timeline": {
-		"width": "calc(100% - 240px)"
 	},
 	".js-comment-container, .timeline-comment-wrapper": {
 		"max-width": "100%"
@@ -79,6 +76,9 @@ if (min.isOnPath("notifications")) {
 	min.dom.insertBefore(dummyHeader, header);
 
 	min.gm.style({
+        ".discussion-timeline": {
+            "width": "calc(100% - 240px)"
+        },
 		".io-floating #partial-discussion-header": {
 			"position": "fixed",
 			"top": "0",
