@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		GitHub Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		1.7
+// @version		1.8
 // @author		Iulian Onofrei
 // @updateURL	https://gist.github.com/raw/187bc89d5e48990dfc38c02bcd5460c2/GitHub_Enhancer.user.js
 // @match		https://gist.github.com/*/*
@@ -35,9 +35,9 @@ if (min.isOnPath("notifications")) {
 		var prefix;
 
 		if (notification.href.indexOf("commit") === -1) {
-			prefix = "#" + notification.href.match(/\d+(?=$|#)/)[0];
+			prefix = "#" + notification.href.match(/\d+(?=$|#|\/)/)[0];
 		} else {
-			prefix = "@" + notification.href.match(/\w+(?=$|#)/)[0].substr(0, 7);
+			prefix = "@" + notification.href.match(/\w+(?=$|#|\/)/)[0].substr(0, 7);
 		}
 
 		notification.textContent = "(" + prefix + ") " + notification.textContent;
