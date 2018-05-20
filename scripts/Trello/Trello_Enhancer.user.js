@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name        Trello Enhancer
 // @namespace   http://iulianonofrei.com
-// @version     0.2
+// @version     0.2.1
 // @author      Iulian Onofrei
-// @updateURL	https://gist.github.com/raw/02b43d359f6b6ef095a65a6b8eea5ab8/Trello_Enhancer.user.js
+// @updateURL	https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Trello/Trello_Enhancer.user.js
 // @include     https://trello.com/*
 // @grant       none
 // ==/UserScript==
