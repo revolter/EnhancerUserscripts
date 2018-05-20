@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Media Redirect
 // @namespace    http://iulianonofrei.com
-// @version      0.6
+// @version      0.6.1
 // @author       Iulian Onofrei
-// @updateURL    https://gist.github.com/raw/930fc945fe0e8dc220ca040c8d1bafb3/Media_Redirect.user.js
+// @updateURL    https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Media_Redirect/Media_Redirect.user.js
 // @match        *://www.commitstrip.com/*
 // @match        https://www.facebook.com/*
 // @match        https://www.google.com/imgres*
