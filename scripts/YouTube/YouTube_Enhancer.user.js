@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      1.11.1
+// @version      1.12
 // @author       Iulian Onofrei
 // @updateURL    https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/YouTube/YouTube_Enhancer.user.js
 // @match        https://youtube.com/*
@@ -130,12 +130,16 @@
             } else {
                 seekByTime(key);
             }
-        } else if (shouldHandleEvent(event, Direction.Vertical) || shouldHandleEvent(event, Direction.None, [Key.Zero])) {
+        } else if (shouldHandleEvent(event, Direction.Vertical)) {
             if (event.shiftKey) {
                 setPlaybackRate(event);
             } else {
                 setVolume(key);
             }
+        } else if (shouldHandleEvent(event, Direction.None, [Key.Zero])) {
+        	if (event.shiftKey) {
+        		setPlaybackRate(event);
+        	}
         } else if (shouldHandleEvent(event, Direction.None, [Key.Space])) {
             togglePlay();
         } else {
