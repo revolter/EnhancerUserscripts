@@ -1,0 +1,19 @@
+{
+  "name": "enhanceruserscripts",
+  "version": "1.0.0",
+  "description": "Collection of miscellaneous enhancer Userscripts",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/revolter/EnhancerUserscripts.git"
+  },
+  "keywords": [
+    "userscript"
+  ],
+  "author": "Iulian Onofrei",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/revolter/EnhancerUserscripts/issues"
+  },
+  "homepage": "https://github.com/revolter/EnhancerUserscripts#readme"
+}
