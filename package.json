@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/revolter/EnhancerUserscripts/issues"
   },
-  "homepage": "https://github.com/revolter/EnhancerUserscripts#readme"
+  "homepage": "https://github.com/revolter/EnhancerUserscripts#readme",
+  "devDependencies": {
+    "documentation": "^6.3.3"
+  }
 }
