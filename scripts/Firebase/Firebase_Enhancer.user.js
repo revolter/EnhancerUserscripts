@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Firebase Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      0.2
+// @version      0.2.1
 // @author       Iulian Onofrei
-// @updateURL	 https://gist.github.com/raw/c3854b492697a03c72a764f386a3e24f/Firebase_Enhancer.user.js
+// @updateURL	 https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Firebase/Firebase_Enhancer.user.js
 // @match        https://console.firebase.google.com/*
 // @require      https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
 // @grant        GM_addStyle
