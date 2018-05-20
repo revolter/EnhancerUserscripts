@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         V LIVE Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      0.5
+// @version      0.6
 // @author       Iulian Onofrei
 // @updateURL    https://gist.github.com/raw/e798d141e0b0367a8e68c7c68372aa89/V_LIVE_Enhancer.user.js
 // @match        http://www.vlive.tv/video/*
@@ -30,8 +30,6 @@
             if (subtitle.firstChild.id === CUSTOM_SUBTITLE_ID) {
                 return;
             }
-
-            console.debug(subtitle.innerHTML);
 
             var
                 subtitleText = subtitle.innerHTML.replace(/<br\s*[\/]?>/gi, "\n"),
