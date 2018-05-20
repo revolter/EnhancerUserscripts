@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Dropbox Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      0.2
+// @version      0.3
 // @author       Iulian Onofrei
 // @updateURL	 https://gist.github.com/raw/9079a4300b546da8e5761306ce46a56b/Dropbox_Enhancer.user.js
 // @match        https://www.dropbox.com/sh/*
@@ -11,7 +11,7 @@
 
 (function() {
     'use strict';
-console.debug("da");
+
 	var links = min.dom.getByQuery(".file-link:first-child", min.dom.ALL);
 
 	min.forEach(links, function(link) {
