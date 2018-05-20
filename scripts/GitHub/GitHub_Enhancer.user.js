@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name		GitHub Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		1.8
+// @version		1.8.1
 // @author		Iulian Onofrei
-// @updateURL	https://gist.github.com/raw/187bc89d5e48990dfc38c02bcd5460c2/GitHub_Enhancer.user.js
+// @updateURL	https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/GitHub/GitHub_Enhancer.user.js
 // @match		https://gist.github.com/*/*
 // @match		https://github.com/*
 // @require		https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
