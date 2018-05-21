@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Collection of miscellaneous enhancer Userscripts",
   "main": "index.js",
+  "scripts": {
+    "lint-code": "eslint scripts/**/*"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/revolter/EnhancerUserscripts.git"
