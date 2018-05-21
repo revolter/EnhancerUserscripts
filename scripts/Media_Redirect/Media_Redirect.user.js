@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Media Redirect
 // @namespace    http://iulianonofrei.com
-// @version      0.6.1
+// @version      0.6.2
 // @author       Iulian Onofrei
 // @updateURL    https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Media_Redirect/Media_Redirect.user.js
 // @match        *://www.commitstrip.com/*
@@ -9,7 +9,7 @@
 // @match        https://www.google.com/imgres*
 // @match        https://www.google.ro/imgres*
 // @match        https://www.instagram.com/*
-// @require      https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
+// @require      https://raw.githubusercontent.com/revolter/min/master/min.min.js
 // ==/UserScript==
 
 (function() {

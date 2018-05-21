@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         Netflix Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      0.1
+// @version      0.2
 // @author       Iulian Onofrei
 // @updateURL    https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Netflix/Netflix_Enhancer.user.js
 // @match        https://www.netflix.com/*
-// @require      https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
+// @require      https://raw.githubusercontent.com/revolter/min/master/min.min.js
 // ==/UserScript==
 
 (function() {

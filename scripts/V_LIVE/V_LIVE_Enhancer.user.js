@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         V LIVE Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      0.6.1
+// @version      0.6.2
 // @author       Iulian Onofrei
 // @updateURL    https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/V_LIVE/V_LIVE_Enhancer.user.js
 // @match        http://www.vlive.tv/video/*
-// @require      https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
+// @require      https://raw.githubusercontent.com/revolter/min/master/min.min.js
 // ==/UserScript==
 
 (function() {

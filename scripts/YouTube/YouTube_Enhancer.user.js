@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         YouTube Enhancer
 // @namespace    http://iulianonofrei.com
-// @version      1.12
+// @version      1.12.1
 // @author       Iulian Onofrei
 // @updateURL    https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/YouTube/YouTube_Enhancer.user.js
 // @match        https://youtube.com/*
 // @match        https://www.youtube.com/*
-// @require      https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
+// @require      https://raw.githubusercontent.com/revolter/min/master/min.min.js
 // @grant        GM_addStyle
 // ==/UserScript==
 

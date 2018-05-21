@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		StackOverflow Enhancer
 // @namespace	http://iulianonofrei.com
-// @version		0.8.1
+// @version		0.8.2
 // @author		Iulian Onofrei
 // @updateURL	https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/StackOverflow/StackOverflow_Enhancer.user.js
 // @match		http*://stackoverflow.com/questions/*
@@ -10,7 +10,7 @@
 // @match		http*://superuser.com/questions/*
 // @match		http*://serverfault.com/questions/*
 // @match		http*://*.stackexchange.com/questions/*
-// @require		https://gist.githubusercontent.com/raw/dab432d4b4bbb672896b/min.js
+// @require		https://raw.githubusercontent.com/revolter/min/master/min.min.js
 // @grant		GM_addStyle
 // ==/UserScript==
 
