@@ -1,14 +1,21 @@
 // ==UserScript==
-// @name         Altex Enhancer
-// @namespace    http://iulianonofrei.com
-// @version      0.7.2
-// @author       Iulian Onofrei
-// @updateURL    https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Altex/Altex_Enhancer.user.js
-// @match        https://altex.ro/sales/order/history/*
-// @require      https://raw.githubusercontent.com/revolter/min/master/min.min.js
-// @grant        GM_xmlhttpRequest
+// @name        Altex Enhancer
+// @description Adds the products' images to every order.
+// @namespace   http://iulianonofrei.com
+// @version     0.7.2
+// @author      Iulian Onofrei
+// @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Altex/Altex_Enhancer.user.js
+// @match       https://altex.ro/sales/order/history/*
+// @require     https://raw.githubusercontent.com/revolter/min/master/min.min.js
+// @grant       GM_xmlhttpRequest
 // ==/UserScript==
 
+/**
+ * - Adds the products' images to every order.
+ *
+ * [Install](https://raw.githubusercontent.com/revolter/EnhancerUserscripts/master/scripts/Altex/Altex_Enhancer.user.js)
+ * @alias Altex-Enhancer
+ */
 (() => {
     "use strict";
 

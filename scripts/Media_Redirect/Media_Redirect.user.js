@@ -1,17 +1,25 @@
 // ==UserScript==
-// @name         Media Redirect
-// @namespace    http://iulianonofrei.com
-// @version      0.6.2
-// @author       Iulian Onofrei
-// @updateURL    https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Media_Redirect/Media_Redirect.user.js
-// @match        *://www.commitstrip.com/*
-// @match        https://www.facebook.com/*
-// @match        https://www.google.com/imgres*
-// @match        https://www.google.ro/imgres*
-// @match        https://www.instagram.com/*
-// @require      https://raw.githubusercontent.com/revolter/min/master/min.min.js
+// @name        Media Redirect
+// @description Redirects to the image file on commitstrip.com, facebook,com, google.com, google.ro, instragram.com.
+// @namespace   http://iulianonofrei.com
+// @version     0.6.2
+// @author      Iulian Onofrei
+// @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Media_Redirect/Media_Redirect.user.js
+// @match       *://www.commitstrip.com/*
+// @match       https://www.facebook.com/*
+// @match       https://www.google.com/imgres*
+// @match       https://www.google.ro/imgres*
+// @match       https://www.instagram.com/*
+// @require     https://raw.githubusercontent.com/revolter/min/master/min.min.js
 // ==/UserScript==
 
+/**
+ * - Redirects to the image file on commitstrip.com, facebook,com, google.com,
+ *   google.ro, instragram.com.
+ *
+ * [Install](https://raw.githubusercontent.com/revolter/EnhancerUserscripts/master/scripts/Media_Redirect/Media_Redirect.user.js)
+ * @alias Media-Redirect
+ */
 (() => {
     "use strict";
 

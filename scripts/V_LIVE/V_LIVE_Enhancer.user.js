@@ -1,13 +1,20 @@
 // ==UserScript==
-// @name         V LIVE Enhancer
-// @namespace    http://iulianonofrei.com
-// @version      0.6.2
-// @author       Iulian Onofrei
-// @updateURL    https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/V_LIVE/V_LIVE_Enhancer.user.js
-// @match        http://www.vlive.tv/video/*
-// @require      https://raw.githubusercontent.com/revolter/min/master/min.min.js
+// @name        V LIVE Enhancer
+// @description De-emphasizes non-speech parts of the subtitles.
+// @namespace   http://iulianonofrei.com
+// @version     0.6.2
+// @author      Iulian Onofrei
+// @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/V_LIVE/V_LIVE_Enhancer.user.js
+// @match       http://www.vlive.tv/video/*
+// @require     https://raw.githubusercontent.com/revolter/min/master/min.min.js
 // ==/UserScript==
 
+/**
+ * - De-emphasizes non-speech parts of the subtitles.
+ *
+ * [Install](https://raw.githubusercontent.com/revolter/EnhancerUserscripts/master/scripts/V_LIVE/V_LIVE_Enhancer.user.js)
+ * @alias V.LIVE-Enhancer
+ */
 (() => {
     "use strict";
 

@@ -1,15 +1,26 @@
 // ==UserScript==
-// @name         GitHub Enhancer
-// @namespace    http://iulianonofrei.com
-// @version      1.8.2
-// @author       Iulian Onofrei
-// @updateURL    https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/GitHub/GitHub_Enhancer.user.js
-// @match        https://gist.github.com/*/*
-// @match        https://github.com/*
-// @require      https://raw.githubusercontent.com/revolter/min/master/min.min.js
-// @grant        GM_addStyle
+// @name        GitHub Enhancer
+// @description Makes most of the pages full-width. Adds the id number to issues and pull requests notifications. Makes the issues and pull requests headers floating. Adds a permalink button to files pages. Adds a permalink button to the latest version of a Gist.
+// @namespace   http://iulianonofrei.com
+// @version     1.8.2
+// @author      Iulian Onofrei
+// @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/GitHub/GitHub_Enhancer.user.js
+// @match       https://gist.github.com/*/*
+// @match       https://github.com/*
+// @require     https://raw.githubusercontent.com/revolter/min/master/min.min.js
+// @grant       GM_addStyle
 // ==/UserScript==
 
+/**
+ * - Makes most of the pages full-width.
+ * - Adds the id number to issues and pull requests notifications.
+ * - Makes the issues and pull requests headers floating.
+ * - Adds a permalink button to files pages.
+ * - Adds a permalink button to the latest version of a Gist.
+ *
+ * [Install](https://raw.githubusercontent.com/revolter/EnhancerUserscripts/master/scripts/GitHub/GitHub_Enhancer.user.js)
+ * @alias GitHub-Enhancer
+ */
 (() => {
     "use strict";
 
@@ -141,7 +152,7 @@
             rawScriptButton.text = "Raw Script";
             rawScriptButton.className = "btn btn-sm";
             rawScriptButton.style.cssText = "margin-left: 5px";
-            rawScriptButton.href = rawButton.href.replace(/revolter(?<id>\/[^/]+)\/raw\/[^/]+/u, "raw$<id>");
+            rawScriptButton.href = rawButton.href.replace(/[^/]+(?<id>\/[^/]+)\/raw\/[^/]+/u, "raw$<id>");
 
             min.dom.insertAfter(rawScriptButton, actionsBar.lastElementChild);
         }

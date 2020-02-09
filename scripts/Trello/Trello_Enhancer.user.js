@@ -1,16 +1,24 @@
 // ==UserScript==
-// @name         Trello Enhancer
-// @namespace    http://iulianonofrei.com
-// @version      0.2.1
-// @author       Iulian Onofrei
-// @updateURL    https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Trello/Trello_Enhancer.user.js
-// @include      https://trello.com/*
-// @require      https://raw.githubusercontent.com/revolter/min/master/min.min.js
-// @grant        GM_addStyle
+// @name        Trello Enhancer
+// @description Makes the card popup full-width. Adds the option to automatically deselect all the items in a checklist.
+// @namespace   http://iulianonofrei.com
+// @version     0.2.1
+// @author      Iulian Onofrei
+// @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Trello/Trello_Enhancer.user.js
+// @include     https://trello.com/*
+// @require     https://raw.githubusercontent.com/revolter/min/master/min.min.js
+// @grant       GM_addStyle
 // ==/UserScript==
 
 /* eslint-env jquery */
 
+/**
+ * - Makes the card popup full-width. Adds the option to automatically deselect
+ *   all the items in a checklist.
+ *
+ * [Install](https://raw.githubusercontent.com/revolter/EnhancerUserscripts/master/scripts/Trello/Trello_Enhancer.user.js)
+ * @alias Trello-Enhancer
+ */
 (() => {
     "use strict";
 

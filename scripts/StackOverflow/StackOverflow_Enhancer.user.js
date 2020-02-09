@@ -1,19 +1,26 @@
 // ==UserScript==
-// @name         StackOverflow Enhancer
-// @namespace    http://iulianonofrei.com
-// @version      0.8.2
-// @author       Iulian Onofrei
-// @updateURL    https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/StackOverflow/StackOverflow_Enhancer.user.js
-// @match        http*://stackoverflow.com/questions/*
-// @match        http*://stackoverflow.com/posts/*
-// @match        http*://meta.stackoverflow.com/questions/*
-// @match        http*://superuser.com/questions/*
-// @match        http*://serverfault.com/questions/*
-// @match        http*://*.stackexchange.com/questions/*
-// @require      https://raw.githubusercontent.com/revolter/min/master/min.min.js
-// @grant        GM_addStyle
+// @name        StackOverflow Enhancer
+// @description Makes most of the pages full-width.
+// @namespace   http://iulianonofrei.com
+// @version     0.8.2
+// @author      Iulian Onofrei
+// @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/StackOverflow/StackOverflow_Enhancer.user.js
+// @match       http*://stackoverflow.com/questions/*
+// @match       http*://stackoverflow.com/posts/*
+// @match       http*://meta.stackoverflow.com/questions/*
+// @match       http*://superuser.com/questions/*
+// @match       http*://serverfault.com/questions/*
+// @match       http*://*.stackexchange.com/questions/*
+// @require     https://raw.githubusercontent.com/revolter/min/master/min.min.js
+// @grant       GM_addStyle
 // ==/UserScript==
 
+/**
+ * - Makes most of the pages full-width.
+ *
+ * [Install](https://raw.githubusercontent.com/revolter/EnhancerUserscripts/master/scripts/StackOverflow/StackOverflow_Enhancer.user.js)
+ * @alias StackOverflow-Enhancer
+ */
 min.gm.style({
     "#content": {
         "width": "90%"
