@@ -12,20 +12,18 @@
 // @require      https://raw.githubusercontent.com/revolter/min/master/min.min.js
 // ==/UserScript==
 
-(function() {
-    'use strict';
+(() => {
+    "use strict";
 
-    var noRedirectQueryParam = "io-no-redirect=1";
+    const noRedirectQueryParam = "io-no-redirect=1";
 
-    if (window.location.search.indexOf(noRedirectQueryParam) !== -1) {
+    if (window.location.search.indexOf(noRedirectQueryParam) !== min.NOT_FOUND) {
         return;
     }
 
-    function getRedirectURL(completion) {
-        var element;
-
+    const getRedirectURL = (completion) => {
         if (min.isOnWebsite("commitstrip.com")) {
-            min.dom.onNodeExists(min.dom.getByXPath, "//img[contains(@class, 'size-full')]/@src", function(element) {
+            min.dom.onNodeExists(min.dom.getByXPath, "//img[contains(@class, 'size-full')]/@src", (element) => {
                 completion(element.value);
             });
         } else if (min.isOnWebsite("facebook.com")) {
@@ -33,11 +31,11 @@
                 completion(null);
             }
 
-            min.dom.onNodeExists(min.dom.getByXPath, "//img[@class = 'spotlight']/@src", function(element) {
+            min.dom.onNodeExists(min.dom.getByXPath, "//img[@class = 'spotlight']/@src", (element) => {
                 completion(element.value);
             });
         } else if (min.isOnWebsite("google.")) {
-            min.dom.onNodeExists(min.dom.getByXPath, "//meta[@property = 'og:image']/@content", function(element) {
+            min.dom.onNodeExists(min.dom.getByXPath, "//meta[@property = 'og:image']/@content", (element) => {
                 completion(element.value);
             });
         } else if (min.isOnWebsite("instagram.com")) {
@@ -45,7 +43,7 @@
                 completion(null);
             }
 
-            element = min.dom.getByXPath("//head/meta[@property = 'og:video']/@content");
+            const element = min.dom.getByXPath("//head/meta[@property = 'og:video']/@content");
 
             if (!element) {
                 completion(null);
@@ -53,22 +51,25 @@
 
             completion(element.value);
         }
-    }
+    };
 
-    getRedirectURL(function(redirectURL) {
+    getRedirectURL((redirectURL) => {
         if (!redirectURL) {
             return;
         }
 
-        var
-            protocol = window.location.protocol,
-            host = window.location.host,
-            path = window.location.pathname,
-            query = window.location.search,
-            noRedirectURL = protocol + "//" + host + path + query + (query ? '&' : '?') + noRedirectQueryParam;
+        const {
+                protocol,
+                host,
+                "pathname": path,
+                "search": query
+            } = window.location,
+            noRedirectURL = `${protocol}//${host}${path}${query}${query ? "&" : "?"}${noRedirectQueryParam}`;
 
         window.history.pushState(null, null, noRedirectURL);
-        window.history.pushState(null, null, noRedirectURL); // this will be skipped because .href doesn't push in the history
+
+        // This will be skipped because .href doesn't push in the history
+        window.history.pushState(null, null, noRedirectURL);
 
         window.location.href = redirectURL;
     });

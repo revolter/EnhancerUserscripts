@@ -9,8 +9,8 @@
 // @grant        GM_addStyle
 // ==/UserScript==
 
-(function() {
-    'use strict';
+(() => {
+    "use strict";
 
     min.gm.style({
         ".nav-secondary-wrap, #firehose-message-tray, aside.view_mode": {

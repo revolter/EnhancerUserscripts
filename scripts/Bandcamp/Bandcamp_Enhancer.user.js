@@ -10,12 +10,12 @@
 // @grant        GM_addStyle
 // ==/UserScript==
 
-(function() {
-    'use strict';
+(() => {
+    "use strict";
 
-	min.gm.style({
-		".current_track .title-col .title a": {
-			"color": "red"
-		}
-	});
+    min.gm.style({
+        ".current_track .title-col .title a": {
+            "color": "red"
+        }
+    });
 })();

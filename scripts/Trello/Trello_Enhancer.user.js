@@ -1,54 +1,69 @@
 // ==UserScript==
-// @name        Trello Enhancer
-// @namespace   http://iulianonofrei.com
-// @version     0.2.1
-// @author      Iulian Onofrei
-// @updateURL	https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Trello/Trello_Enhancer.user.js
-// @include     https://trello.com/*
-// @grant       none
+// @name         Trello Enhancer
+// @namespace    http://iulianonofrei.com
+// @version      0.2.1
+// @author       Iulian Onofrei
+// @updateURL    https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Trello/Trello_Enhancer.user.js
+// @include      https://trello.com/*
+// @require      https://raw.githubusercontent.com/revolter/min/master/min.min.js
+// @grant        GM_addStyle
 // ==/UserScript==
 
-document.head.innerHTML +=
-	"<style>\
-		.window {\
-			width: 70% !important;\
-		}\
-		.window-main-col {\
-			width: 90% !important;\
-		}\
-		.checklist {\
-			margin-bottom: 4px !important;\
-		}\
-	</style>";
+/* eslint-env jquery */
 
-$(window).on("keypress", function(e) {
-	if(e.charCode === 63) {
-		addToggle();
-	}
-});
+(() => {
+    "use strict";
 
-function addToggle() {
-	$(".checklist").each(function(index, element) {
-	 var
-		 $element = $(element),
-		 $icon = $element.find(".window-module-title-icon");
+    const
+        DESELECT_DELAY = 200,
 
-		if ($icon.css("cursor") !== "pointer") {
-			$icon.css("cursor", "pointer");
+        KEY = {
+            "QuestionMark": 63
+        },
 
-			$icon.click(deselectChecklist);
-		}
-	});
-}
+        // eslint-disable-next-line no-shadow
+        deselectChecklist = (event) => {
+            const
+                $element = $(event.currentTarget),
+                $checkboxes = $element.parent().parent().find(".checklist-item-state-complete .checklist-item-checkbox");
 
-function deselectChecklist() {
-	var
-		$element = $(this),
-		$checkboxes = $element.parent().parent().find(".checklist-item-state-complete .checklist-item-checkbox");
+            $checkboxes.each((index, element) => {
+                setTimeout(() => {
+                    $(element).click();
+                }, index * DESELECT_DELAY);
+            });
+        },
 
-	$checkboxes.each(function(index, element) {
-		setTimeout(function() {
-			$(element).click();
-		}, index * 200);
-	});
-}
+        addToggle = () => {
+            $(".checklist").each((_, element) => {
+                const
+                    $element = $(element),
+                    $icon = $element.find(".window-module-title-icon");
+
+                if ($icon.css("cursor") !== "pointer") {
+                    $icon.css("cursor", "pointer");
+
+                    $icon.click(deselectChecklist);
+                }
+            });
+        };
+
+    min.gm.style({
+        ".window": {
+            "width": "70%"
+        },
+        ".window-main-col": {
+            "width": "90%"
+        },
+        ".checklist": {
+            "margin-bottom": "4px"
+        }
+    });
+
+    // eslint-disable-next-line no-shadow
+    $(window).on("keypress", (event) => {
+        if (event.charCode === KEY.QuestionMark) {
+            addToggle();
+        }
+    });
+})();

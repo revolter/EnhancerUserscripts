@@ -8,18 +8,18 @@
 // @require      https://raw.githubusercontent.com/revolter/min/master/min.min.js
 // ==/UserScript==
 
-(function() {
-    'use strict';
+(() => {
+    "use strict";
 
-    var
+    const
         CUSTOM_SUBTITLE_ID = "io-custom-subtitle",
-        SUBTITLE_PARTS_REGEX = /(\[[^\]]*\])|([^\[\n]+)/g;
+        SUBTITLE_PARTS_REGEX = /(\[[^\]]*\])|([^[\n]+)/g;
 
-    min.dom.onNodeExists(min.dom.getByXPath, "//div[@data-subtitle-container]", function (container) {
-        min.dom.addObserver(function () {
-            var subtitle = min.dom.getByXPath.apply(min.dom, ["//div[@data-subtitle-display]"]);
+    min.dom.onNodeExists(min.dom.getByXPath, "//div[@data-subtitle-container]", (container) => {
+        min.dom.addObserver(() => {
+            const subtitle = min.dom.getByXPath("//div[@data-subtitle-display]");
 
-            if(!subtitle) {
+            if (!subtitle) {
                 return;
             }
 
@@ -31,11 +31,11 @@
                 return;
             }
 
-            var
-                subtitleText = subtitle.innerHTML.replace(/<br\s*[\/]?>/gi, "\n"),
+            const
+                subtitleText = subtitle.innerHTML.replace(/<br\s*[/]?>/gi, "\n"),
                 subtitlePartsText = subtitleText.match(SUBTITLE_PARTS_REGEX);
 
-            if (!subtitlePartsText || subtitlePartsText.length === 0) {
+            if (!subtitlePartsText || subtitlePartsText.length === min.EMPTY) {
                 return;
             }
 
@@ -43,20 +43,20 @@
                 subtitle.firstChild.remove();
             }
 
-            var customSubtitle = document.createElement("span");
+            const customSubtitle = document.createElement("span");
 
             customSubtitle.id = CUSTOM_SUBTITLE_ID;
 
             subtitle.appendChild(customSubtitle);
 
-            min.forEach(subtitlePartsText, function (subtitlePartText) {
-                subtitlePartText = subtitlePartText.trim();
+            min.forEach(subtitlePartsText, (item) => {
+                const subtitlePartText = item.trim();
 
-                if (subtitlePartText.length == 0) {
+                if (subtitlePartText.length === min.EMPTY) {
                     return;
                 }
 
-                var newSubtitlePart = document.createElement("span");
+                const newSubtitlePart = document.createElement("span");
 
                 newSubtitlePart.innerHTML = subtitlePartText;
 
@@ -66,7 +66,7 @@
 
                 customSubtitle.appendChild(newSubtitlePart);
 
-                var lineBreak = document.createElement("br");
+                const lineBreak = document.createElement("br");
 
                 customSubtitle.appendChild(lineBreak);
             });

@@ -8,13 +8,13 @@
 // @require      https://raw.githubusercontent.com/revolter/min/master/min.min.js
 // ==/UserScript==
 
-(function() {
-    'use strict';
+(() => {
+    "use strict";
 
-    min.dom.onNodeExists(min.dom.getByClassName, "postplay", function (player) {
+    min.dom.onNodeExists(min.dom.getByClassName, "postplay", (player) => {
         player.click();
 
-        var clickEvent = new Event("mouseout", {
+        const clickEvent = new Event("mouseout", {
             "view": window,
             "bubbles": true,
             "cancelable": false

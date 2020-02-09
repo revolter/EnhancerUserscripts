@@ -9,14 +9,14 @@
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
-(function() {
-    'use strict';
+(() => {
+    "use strict";
 
-    var confirmedOrderBackgroundColor = "rgba(0, 128, 0, 0.2)";
+    const confirmedOrderBackgroundColor = "rgba(0, 128, 0, 0.2)";
 
-    min.forEach(min.dom.getByXPath("//div[@class = 'my-account']/div[@class = 'u-container-reset']/table/tbody/tr", min.dom.ALL), function(order) {
-        var
-            link = min.dom.getByXPath("/td/div/a", 0, order),
+    min.forEach(min.dom.getByXPath("//div[@class = 'my-account']/div[@class = 'u-container-reset']/table/tbody/tr", min.dom.ALL), (order) => {
+        const
+            link = min.dom.getByXPath("/td/div/a", min.dom.FIRST, order),
             linkWrapper = order.lastElementChild,
             orderStatus = linkWrapper.previousElementSibling.firstElementChild,
             isOrderConfirmed = orderStatus.textContent === "Confirmat integral";
@@ -26,22 +26,25 @@
         }
 
         if (isOrderConfirmed) {
+            // eslint-disable-next-line no-param-reassign
             order.style.backgroundColor = confirmedOrderBackgroundColor;
         }
 
-        min.gm.xhr(link.href, function(doc) {
-            var products = Array.from(min.dom.getByXPath("//table[@id = 'my-orders-table']/tbody/tr", min.dom.ALL, doc));
+        min.gm.xhr(link.href, (doc) => {
+            const products = Array.from(min.dom.getByXPath("//table[@id = 'my-orders-table']/tbody/tr", min.dom.ALL, doc));
 
+            // eslint-disable-next-line no-magic-numbers
             linkWrapper.rowSpan = products.length + 1;
 
-            min.forEach(products, function(product) {
-                var
-                    productTitle = min.dom.getByXPath("/td[1]/div", 0, product),
+            min.forEach(products, (product) => {
+                const
+                    productTitle = min.dom.getByXPath("/td[1]/div", min.dom.FIRST, product),
                     productTitleText = productTitle.textContent,
                     productSlug = productTitleText.replace(/\W+/g, "-").toLowerCase();
 
-                productTitle.innerHTML = "<a href='https://altex.ro/" + productSlug + "'>" + productTitleText + "</a>";
+                productTitle.innerHTML = `<a href='https://altex.ro/${productSlug}'>${productTitleText}</a>`;
 
+                // eslint-disable-next-line no-param-reassign
                 product.style.backgroundColor = isOrderConfirmed ? confirmedOrderBackgroundColor : "#EEE";
 
                 min.dom.insertAfter(product, order);

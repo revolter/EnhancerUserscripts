@@ -9,21 +9,21 @@
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
-(function() {
-    'use strict';
+(() => {
+    "use strict";
 
-    min.forEach(min.dom.getByClassName("order-hist-box", min.dom.ALL), function(order) {
-        var link = min.dom.getByXPath("/div/a", 0, order);
+    min.forEach(min.dom.getByClassName("order-hist-box", min.dom.ALL), (order) => {
+        const link = min.dom.getByXPath("/div/a", min.dom.FIRST, order);
 
         if (!link) {
             return;
         }
 
-        min.gm.xhr(link.href, function(doc) {
-            var products = Array.from(min.dom.getByXPath("//ul[contains(@class, 'product-list')]/li", min.dom.ALL, doc));
+        min.gm.xhr(link.href, (doc) => {
+            const products = Array.from(min.dom.getByXPath("//ul[contains(@class, 'product-list')]/li", min.dom.ALL, doc));
 
-            min.forEach(products, function(product) {
-                var image = min.dom.getByTagName("img", 0, product);
+            min.forEach(products, (product) => {
+                const image = min.dom.getByTagName("img", min.dom.FIRST, product);
 
                 image.style.marginRight = "10px";
 
