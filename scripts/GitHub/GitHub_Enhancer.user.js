@@ -41,10 +41,10 @@
 
             if (notification.href.indexOf("commit") === min.NOT_FOUND) {
                 prefix = "#";
-                reference = notification.href.match(/\d+(?=$|#|\/)/)[min.FIRST];
+                reference = notification.href.match(/\d+(?=$|#|\/)/u)[min.FIRST];
             } else {
                 prefix = "@";
-                reference = notification.href.match(/\w+(?=$|#|\/)/)[min.FIRST].substr(min.FIRST, SHORT_COMMIT_HASH_LENGTH);
+                reference = notification.href.match(/\w+(?=$|#|\/)/u)[min.FIRST].substr(min.FIRST, SHORT_COMMIT_HASH_LENGTH);
             }
 
             // eslint-disable-next-line no-param-reassign
@@ -123,7 +123,7 @@
     } else {
         const actionsBar = min.dom.getByClassName("file-actions");
 
-        if (min.isOnPath(/[^/]+\/blob\/.+/)) {
+        if (min.isOnPath(/[^/]+\/blob\/.+/u)) {
             const
                 permalinkShortcutLink = min.dom.getByClassName("js-permalink-shortcut"),
                 permalinkButton = document.createElement("a");
@@ -141,7 +141,7 @@
             rawScriptButton.text = "Raw Script";
             rawScriptButton.className = "btn btn-sm";
             rawScriptButton.style.cssText = "margin-left: 5px";
-            rawScriptButton.href = rawButton.href.replace(/revolter(\/[^/]+)\/raw\/[^/]+/, "raw$1");
+            rawScriptButton.href = rawButton.href.replace(/revolter(?<id>\/[^/]+)\/raw\/[^/]+/u, "raw$<id>");
 
             min.dom.insertAfter(rawScriptButton, actionsBar.lastElementChild);
         }

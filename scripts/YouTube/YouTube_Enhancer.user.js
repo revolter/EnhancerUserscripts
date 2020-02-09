@@ -287,7 +287,7 @@
                 // eslint-disable-next-line no-plusplus
                 while (index--) {
                     if (temp[index].indexOf(`itag=${pi}`) > FIRST_INDEX) {
-                        fps = parseInt(temp[index].match(/fps=([\d]+)/)[1], 10);
+                        fps = parseInt(temp[index].match(/fps=(?<fps>[\d]+)/u).groups.fps, 10);
 
                         break;
                     }

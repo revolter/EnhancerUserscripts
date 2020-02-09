@@ -39,7 +39,7 @@
                 completion(element.value);
             });
         } else if (min.isOnWebsite("instagram.com")) {
-            if (!min.isOnPath(/^\/p\/\w+/)) {
+            if (!min.isOnPath(/^\/p\/\w+/u)) {
                 completion(null);
             }
 

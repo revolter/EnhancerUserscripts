@@ -13,7 +13,7 @@
 
     const
         CUSTOM_SUBTITLE_ID = "io-custom-subtitle",
-        SUBTITLE_PARTS_REGEX = /(\[[^\]]*\])|([^[\n]+)/g;
+        SUBTITLE_PARTS_REGEX = /\[[^\]]*\]|[^[\n]+/gu;
 
     min.dom.onNodeExists(min.dom.getByXPath, "//div[@data-subtitle-container]", (container) => {
         min.dom.addObserver(() => {
@@ -32,7 +32,7 @@
             }
 
             const
-                subtitleText = subtitle.innerHTML.replace(/<br\s*[/]?>/gi, "\n"),
+                subtitleText = subtitle.innerHTML.replace(/<br\s*[/]?>/giu, "\n"),
                 subtitlePartsText = subtitleText.match(SUBTITLE_PARTS_REGEX);
 
             if (!subtitlePartsText || subtitlePartsText.length === min.EMPTY) {

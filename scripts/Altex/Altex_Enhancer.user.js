@@ -40,7 +40,7 @@
                 const
                     productTitle = min.dom.getByXPath("/td[1]/div", min.dom.FIRST, product),
                     productTitleText = productTitle.textContent,
-                    productSlug = productTitleText.replace(/\W+/g, "-").toLowerCase();
+                    productSlug = productTitleText.replace(/\W+/gu, "-").toLowerCase();
 
                 productTitle.innerHTML = `<a href='https://altex.ro/${productSlug}'>${productTitleText}</a>`;
 

@@ -21,7 +21,7 @@
   "homepage": "https://github.com/revolter/EnhancerUserscripts#readme",
   "devDependencies": {
     "documentation": "^6.3.3",
-    "eslint": "^5.2.0",
+    "eslint": "^5.16.0",
     "eslint-config-userscripts": "git+https://github.com/revolter/eslint-config-userscripts.git"
   }
 }
