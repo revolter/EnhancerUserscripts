@@ -2,7 +2,7 @@
 // @name        Trello Enhancer
 // @description Makes the card popup full-width. Adds the option to automatically deselect all the items in a checklist.
 // @namespace   http://iulianonofrei.com
-// @version     0.2.1
+// @version     0.2.2
 // @author      Iulian Onofrei
 // @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Trello/Trello_Enhancer.user.js
 // @include     https://trello.com/*

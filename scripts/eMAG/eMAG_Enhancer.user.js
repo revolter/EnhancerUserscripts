@@ -2,7 +2,7 @@
 // @name        eMAG Enhancer
 // @description Adds the products' images to every order.
 // @namespace   http://iulianonofrei.com
-// @version     0.4.2
+// @version     0.4.3
 // @author      Iulian Onofrei
 // @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/eMag/eMag_Enhancer.user.js
 // @match       https://www.emag.ro/history/shopping*

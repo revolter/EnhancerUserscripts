@@ -2,7 +2,7 @@
 // @name        Media Redirect
 // @description Redirects to the image file on commitstrip.com, facebook,com, google.com, google.ro, instragram.com.
 // @namespace   http://iulianonofrei.com
-// @version     0.6.2
+// @version     0.6.3
 // @author      Iulian Onofrei
 // @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Media_Redirect/Media_Redirect.user.js
 // @match       *://www.commitstrip.com/*

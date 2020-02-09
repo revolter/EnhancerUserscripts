@@ -2,7 +2,7 @@
 // @name        V LIVE Enhancer
 // @description De-emphasizes non-speech parts of the subtitles.
 // @namespace   http://iulianonofrei.com
-// @version     0.6.2
+// @version     0.6.3
 // @author      Iulian Onofrei
 // @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/V_LIVE/V_LIVE_Enhancer.user.js
 // @match       http://www.vlive.tv/video/*

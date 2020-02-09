@@ -2,7 +2,7 @@
 // @name        Dropbox Enhancer
 // @description Adds download links to the files from a shared link.
 // @namespace   http://iulianonofrei.com
-// @version     0.3.2
+// @version     0.3.3
 // @author      Iulian Onofrei
 // @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Dropbox/Dropbox_Enhancer.user.js
 // @match       https://www.dropbox.com/sh/*

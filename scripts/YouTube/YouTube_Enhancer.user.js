@@ -2,7 +2,7 @@
 // @name        YouTube Enhancer
 // @description Makes the Theater mode as big as possible. Makes keyboard shortcuts work without needing to focus the video. Adds keyboard shortcuts for changing the playback speed. Shows the current volume and playback speed levels when changing them using the keyboard shortcuts. Changes the seek time to 5 seconds. Adds a seek by frame option.
 // @namespace   http://iulianonofrei.com
-// @version     1.12.1
+// @version     1.12.2
 // @author      Iulian Onofrei
 // @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/YouTube/YouTube_Enhancer.user.js
 // @match       https://youtube.com/*

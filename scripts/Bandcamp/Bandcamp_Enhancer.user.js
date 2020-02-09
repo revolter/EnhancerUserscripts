@@ -2,7 +2,7 @@
 // @name        Bandcamp Enhancer
 // @description Colors in red the currently playing song.
 // @namespace   http://iulianonofrei.com
-// @version     0.4.2
+// @version     0.4.3
 // @author      Iulian Onofrei
 // @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Bandcamp/Bandcamp_Enhancer.user.js
 // @match       https://*.bandcamp.com/album/*

@@ -2,7 +2,7 @@
 // @name        OneSignal Enhancer
 // @description Makes the OneSignal dashboard full-width.
 // @namespace   http://iulianonofrei.com
-// @version     0.2.2
+// @version     0.2.3
 // @author      Iulian Onofrei
 // @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/OneSignal/REPLACE_Enhancer.user.js
 // @match       https://onesignal.com/*

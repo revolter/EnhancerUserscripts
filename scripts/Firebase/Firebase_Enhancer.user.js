@@ -2,7 +2,7 @@
 // @name        Firebase Enhancer
 // @description Makes the Firebase dashboard full-width.
 // @namespace   http://iulianonofrei.com
-// @version     0.2.2
+// @version     0.2.3
 // @author      Iulian Onofrei
 // @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Firebase/Firebase_Enhancer.user.js
 // @match       https://console.firebase.google.com/*

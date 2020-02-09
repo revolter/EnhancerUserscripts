@@ -2,7 +2,7 @@
 // @name        Netflix Enhancer
 // @description Disables the Post-Play feature.
 // @namespace   http://iulianonofrei.com
-// @version     0.2
+// @version     0.2.1
 // @author      Iulian Onofrei
 // @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Netflix/Netflix_Enhancer.user.js
 // @match       https://www.netflix.com/*

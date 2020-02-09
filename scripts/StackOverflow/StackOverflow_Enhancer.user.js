@@ -2,7 +2,7 @@
 // @name        StackOverflow Enhancer
 // @description Makes most of the pages full-width.
 // @namespace   http://iulianonofrei.com
-// @version     0.8.2
+// @version     0.8.3
 // @author      Iulian Onofrei
 // @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/StackOverflow/StackOverflow_Enhancer.user.js
 // @match       http*://stackoverflow.com/questions/*

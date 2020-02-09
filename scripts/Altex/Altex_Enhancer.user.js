@@ -2,7 +2,7 @@
 // @name        Altex Enhancer
 // @description Adds the products' images to every order.
 // @namespace   http://iulianonofrei.com
-// @version     0.7.2
+// @version     0.7.3
 // @author      Iulian Onofrei
 // @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Altex/Altex_Enhancer.user.js
 // @match       https://altex.ro/sales/order/history/*

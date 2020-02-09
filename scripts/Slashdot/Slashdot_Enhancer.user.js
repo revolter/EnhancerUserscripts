@@ -2,7 +2,7 @@
 // @name        Slashdot Enhancer
 // @description Removes the subheader. Increases the font size.
 // @namespace   http://iulianonofrei.com
-// @version     0.3.2
+// @version     0.3.3
 // @author      Iulian Onofrei
 // @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Slashdot/Slashdot_Enhancer.user.js
 // @match       https://*.slashdot.org/*
