@@ -59,7 +59,32 @@
             min.gm.xhr(`https://fenrir.altex.ro/oms/orders/${orderId}`, (response) => {
                 const
                     responseJSON = JSON.parse(response),
-                    {suborders} = responseJSON.order;
+                    {suborders} = responseJSON.order,
+
+                    backgroundColor = isOrderConfirmed ? confirmedOrderBackgroundColor : canceledOrderBackgroundColor,
+
+                    headersCount = 2,
+
+                    header = min.dom.create("tr", {
+                        "style": {
+                            "background-color": backgroundColor
+                        }
+                    }),
+                    headerName = min.dom.create("th", {
+                        "colSpan": "3"
+                    }),
+                    headerPrice = min.dom.create("th"),
+                    headerQuantity = min.dom.create("th");
+
+                headerName.textContent = "Nume produs";
+                headerPrice.textContent = "Pret";
+                headerQuantity.textContent = "Cantitate";
+
+                header.appendChild(headerName);
+                header.appendChild(headerPrice);
+                header.appendChild(headerQuantity);
+
+                min.dom.insertAfter(header, order);
 
                 let products = [];
 
@@ -67,8 +92,7 @@
                     products = products.concat(suborder.items);
                 });
 
-                // eslint-disable-next-line no-magic-numbers
-                linkWrapper.rowSpan = products.length + 1;
+                linkWrapper.rowSpan = products.length + headersCount;
 
                 products.forEach((product) => {
                     const
@@ -77,23 +101,30 @@
                         slug = name.replace(/\W+/gu, "-").toLowerCase(),
                         link = `https://altex.ro/${slug}/cpd/${product.product_sku}`,
 
-                        line = min.dom.create("tr", {
+                        body = min.dom.create("tr", {
                             "style": {
-                                "background-color": isOrderConfirmed ? confirmedOrderBackgroundColor : canceledOrderBackgroundColor
+                                "background-color": backgroundColor
                             }
                         }),
-                        lineWrapper = min.dom.create("td", {
-                            "colSpan": "5",
+                        bodyLinkWrapper = min.dom.create("td", {
+                            "colSpan": "3",
                             "align": "left"
                         }),
-                        lineLink = min.dom.create("a", {"href": link});
+                        bodyLink = min.dom.create("a", {"href": link}),
+                        bodyPrice = min.dom.create("td"),
+                        bodyQuantity = min.dom.create("td");
 
-                    lineWrapper.appendChild(lineLink);
-                    line.appendChild(lineWrapper);
+                    bodyLink.textContent = name;
+                    bodyPrice.textContent = product.selling_price;
+                    bodyQuantity.textContent = product.qty_ordered;
 
-                    lineLink.textContent = name;
+                    bodyLinkWrapper.appendChild(bodyLink);
 
-                    min.dom.insertAfter(line, order);
+                    body.appendChild(bodyLinkWrapper);
+                    body.appendChild(bodyPrice);
+                    body.appendChild(bodyQuantity);
+
+                    min.dom.insertAfter(body, header);
                 });
             }, null, "GET", {
                 "X-Customer-Token": getCookie("token").replace(/^%22|%22$/gu, "")
