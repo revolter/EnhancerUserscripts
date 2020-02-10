@@ -72,28 +72,28 @@
 
                 products.forEach((product) => {
                     const
-                        productTitleText = product.product_name,
+                        name = product.product_name,
 
-                        productSlug = productTitleText.replace(/\W+/gu, "-").toLowerCase(),
-                        productLink = `https://altex.ro/${productSlug}/cpd/${product.product_sku}`,
+                        slug = name.replace(/\W+/gu, "-").toLowerCase(),
+                        link = `https://altex.ro/${slug}/cpd/${product.product_sku}`,
 
-                        productLine = min.dom.create("tr", {
+                        line = min.dom.create("tr", {
                             "style": {
                                 "background-color": isOrderConfirmed ? confirmedOrderBackgroundColor : canceledOrderBackgroundColor
                             }
                         }),
-                        productLineWrapper = min.dom.create("td", {
+                        lineWrapper = min.dom.create("td", {
                             "colSpan": "5",
                             "align": "left"
                         }),
-                        productLineLink = min.dom.create("a", {"href": productLink});
+                        lineLink = min.dom.create("a", {"href": link});
 
-                    productLineWrapper.appendChild(productLineLink);
-                    productLine.appendChild(productLineWrapper);
+                    lineWrapper.appendChild(lineLink);
+                    line.appendChild(lineWrapper);
 
-                    productLineLink.textContent = productTitleText;
+                    lineLink.textContent = name;
 
-                    min.dom.insertAfter(productLine, order);
+                    min.dom.insertAfter(line, order);
                 });
             }, null, "GET", {
                 "X-Customer-Token": getCookie("token").replace(/^%22|%22$/gu, "")
