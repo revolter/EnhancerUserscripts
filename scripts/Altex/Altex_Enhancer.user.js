@@ -2,7 +2,7 @@
 // @name        Altex Enhancer
 // @description Adds the products to every order. Adds the page link to every product.
 // @namespace   http://iulianonofrei.com
-// @version     0.7.3
+// @version     1.0.0
 // @author      Iulian Onofrei
 // @updateURL   https://github.com/revolter/EnhancerUserscripts/raw/master/scripts/Altex/Altex_Enhancer.user.js
 // @match       https://altex.ro/cont/comenzi/*
