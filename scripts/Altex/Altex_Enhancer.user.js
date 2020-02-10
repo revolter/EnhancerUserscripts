@@ -79,7 +79,7 @@
 
                         productLine = min.dom.create("tr", {
                             "style": {
-                                "background-color": isOrderConfirmed ? confirmedOrderBackgroundColor : "#EEE"
+                                "background-color": isOrderConfirmed ? confirmedOrderBackgroundColor : "#ddd"
                             }
                         }),
                         productLineWrapper = min.dom.create("td", {
