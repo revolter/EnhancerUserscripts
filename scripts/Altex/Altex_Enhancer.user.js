@@ -22,8 +22,11 @@
 
     const
         confirmedOrderBackgroundColor = "rgba(0, 128, 0, 0.2)",
+        confirmedOrderProductBackgroundColor = "rgba(0, 128, 0, 0.1)",
+
         canceledOrderBackgroundColor = "#ddd",
-        
+        canceledOrderProductBackgroundColor = "#eee",
+
         getCookie = (cookieName) => {
             const
                 value = `; ${document.cookie}`,
@@ -61,7 +64,7 @@
                     responseJSON = JSON.parse(response),
                     {suborders} = responseJSON.order,
 
-                    backgroundColor = isOrderConfirmed ? confirmedOrderBackgroundColor : canceledOrderBackgroundColor,
+                    backgroundColor = isOrderConfirmed ? confirmedOrderProductBackgroundColor : canceledOrderProductBackgroundColor,
 
                     headersCount = 2,
 
