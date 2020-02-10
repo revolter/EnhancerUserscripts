@@ -73,10 +73,9 @@
                 products.forEach((product) => {
                     const
                         productTitleText = product.product_name,
-                        productSKU = product.product_sku,
 
                         productSlug = productTitleText.replace(/\W+/gu, "-").toLowerCase(),
-                        productLink = `https://altex.ro/${productSlug}/cpd/${productSKU}`,
+                        productLink = `https://altex.ro/${productSlug}/cpd/${product.product_sku}`,
 
                         productLine = min.dom.create("tr", {
                             "style": {
