@@ -35,7 +35,8 @@ Collection of miscellaneous userscripts with small quality of life improvements.
 
 ### Altex-Enhancer
 
--   Adds the products' images to every order.
+-   Adds the products to every order.
+-   Adds the page link to every product.
 
 [Install](https://raw.githubusercontent.com/revolter/EnhancerUserscripts/master/scripts/Altex/Altex_Enhancer.user.js)
 
