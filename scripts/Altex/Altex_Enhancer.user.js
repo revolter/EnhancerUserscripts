@@ -22,15 +22,16 @@
     const confirmedOrderBackgroundColor = "rgba(0, 128, 0, 0.2)";
 
     min.forEach(min.dom.getByXPath("//div[@class = 'my-account']/div[@class = 'u-container-reset']/table/tbody/tr", min.dom.ALL), (order) => {
-        const
-            link = min.dom.getByXPath("/td/div/a", min.dom.FIRST, order),
-            linkWrapper = order.lastElementChild,
-            orderStatus = linkWrapper.previousElementSibling.firstElementChild,
-            isOrderConfirmed = orderStatus.textContent === "Confirmat integral";
+        const link = min.dom.getByXPath("/td/div/a", min.dom.FIRST, order);
 
         if (!link) {
             return;
         }
+
+        const
+            linkWrapper = order.lastElementChild,
+            orderStatus = linkWrapper.previousElementSibling.firstElementChild,
+            isOrderConfirmed = orderStatus.textContent === "Confirmat integral";
 
         if (isOrderConfirmed) {
             // eslint-disable-next-line no-param-reassign
