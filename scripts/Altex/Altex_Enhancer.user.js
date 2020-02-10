@@ -22,6 +22,8 @@
 
     const
         confirmedOrderBackgroundColor = "rgba(0, 128, 0, 0.2)",
+        canceledOrderBackgroundColor = "#ddd",
+        
         getCookie = (cookieName) => {
             const
                 value = `; ${document.cookie}`,
@@ -51,10 +53,8 @@
                 orderStatus = linkWrapper.previousElementSibling.firstElementChild,
                 isOrderConfirmed = orderStatus.textContent === "Confirmata integral";
 
-            if (isOrderConfirmed) {
-                // eslint-disable-next-line no-param-reassign
-                order.style.backgroundColor = confirmedOrderBackgroundColor;
-            }
+            // eslint-disable-next-line no-param-reassign
+            order.style.backgroundColor = isOrderConfirmed ? confirmedOrderBackgroundColor : canceledOrderBackgroundColor;
 
             min.gm.xhr(`https://fenrir.altex.ro/oms/orders/${orderId}`, (response) => {
                 const
@@ -79,7 +79,7 @@
 
                         productLine = min.dom.create("tr", {
                             "style": {
-                                "background-color": isOrderConfirmed ? confirmedOrderBackgroundColor : "#ddd"
+                                "background-color": isOrderConfirmed ? confirmedOrderBackgroundColor : canceledOrderBackgroundColor
                             }
                         }),
                         productLineWrapper = min.dom.create("td", {
