@@ -44,14 +44,14 @@
         const orders = min.dom.getByQuery("tbody > tr", min.dom.ALL, ordersWrapper);
 
         orders.forEach((order) => {
-            const link = min.dom.getByXPath("/td/div/a", min.dom.FIRST, order);
+            const linkNode = min.dom.getByXPath("/td/div/a", min.dom.FIRST, order);
 
-            if (!link) {
+            if (!linkNode) {
                 return;
             }
 
             const
-                orderId = link.href.match(/(?<id>\d+)\/?$/u).groups.id,
+                orderId = linkNode.href.match(/(?<id>\d+)\/?$/u).groups.id,
                 linkWrapper = order.lastElementChild,
                 orderStatus = linkWrapper.previousElementSibling.firstElementChild,
                 isOrderConfirmed = orderStatus.textContent === "Confirmata integral";
@@ -99,9 +99,9 @@
 
                 products.forEach((product) => {
                     const
-                        name = product.product_name,
+                        productName = product.product_name,
 
-                        slug = name.replace(/\W+/gu, "-").toLowerCase(),
+                        slug = productName.replace(/\W+/gu, "-").toLowerCase(),
                         link = `https://altex.ro/${slug}/cpd/${product.product_sku}`,
 
                         body = min.dom.create("tr", {
@@ -117,7 +117,7 @@
                         bodyPrice = min.dom.create("td"),
                         bodyQuantity = min.dom.create("td");
 
-                    bodyLink.textContent = name;
+                    bodyLink.textContent = productName;
                     bodyPrice.textContent = product.selling_price;
                     bodyQuantity.textContent = product.qty_ordered;
 
