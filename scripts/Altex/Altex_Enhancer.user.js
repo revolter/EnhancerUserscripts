@@ -27,7 +27,7 @@
         canceledOrderBackgroundColor = "#ddd",
         canceledOrderProductBackgroundColor = "#eee",
 
-        getCookie = (cookieName) => {
+        getCookie = function (cookieName) {
             const
                 value = `; ${document.cookie}`,
                 parts = value.split(`; ${cookieName}=`);
