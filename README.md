@@ -54,7 +54,7 @@ Collection of miscellaneous userscripts with small quality of life improvements.
 
 ### eMAG-Enhancer
 
--   Adds the products' images to every order.
+-   Adds the products to every order.
 
 [Install](https://raw.githubusercontent.com/revolter/EnhancerUserscripts/master/scripts/eMAG/eMAG_Enhancer.user.js)
 

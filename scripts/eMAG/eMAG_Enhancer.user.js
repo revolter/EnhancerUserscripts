@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        eMAG Enhancer
-// @description Adds the products' images to every order.
+// @description Adds the products to every order.
 // @namespace   http://iulianonofrei.com
 // @version     0.4.3
 // @author      Iulian Onofrei
@@ -11,7 +11,7 @@
 // ==/UserScript==
 
 /**
- * - Adds the products' images to every order.
+ * - Adds the products to every order.
  *
  * [Install](https://raw.githubusercontent.com/revolter/EnhancerUserscripts/master/scripts/eMAG/eMAG_Enhancer.user.js)
  * @name eMAG-Enhancer
@@ -26,11 +26,14 @@
             return;
         }
 
-        min.gm.xhr(link.href, (doc) => {
-            const products = Array.from(min.dom.getByXPath("//ul[contains(@class, 'product-list')]/li", min.dom.ALL, doc));
+        min.dom.iframe(link.href, (iframe) => {
+            const
+                iframeWindow = iframe.contentWindow,
+                iframeDocument = iframe.contentDocument,
+                products = min.dom.getByQuery(".product-list > li", min.dom.ALL, iframeDocument.body, iframeWindow);
 
-            min.forEach(products, (product) => {
-                const image = min.dom.getByTagName("img", min.dom.FIRST, product);
+            products.forEach((product) => {
+                const image = min.dom.getByTagName("img", min.dom.FIRST, product, iframeWindow);
 
                 image.style.marginRight = "10px";
 
